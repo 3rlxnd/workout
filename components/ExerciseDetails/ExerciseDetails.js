@@ -14,7 +14,9 @@ export default function ExerciseDetails() {
         <h1>{data?.name}</h1>
         <div>
             {data && <div>
-                {data.id}
+                <ul>
+                    {data?.muscleGroups.map((muscle, index) => <li key={index}>{muscle}</li>)}
+                </ul>
                 <ol>
                     {data?.instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
                 </ol>
