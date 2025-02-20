@@ -13,7 +13,7 @@ export default function WorkoutList() {
       <div key={workout.id}>
         <h2>{workout.name}</h2>
         <ul>
-          {workout.exercises.map((exercise, index) => <li key={index}>
+          {workout.exercises.map(exercise => <li key={exercise.exerciseId}>
             <p>{exercise.exerciseId}</p>
             <p>Sets: {exercise.sets}</p>
             <p>Reps: {exercise.reps}</p>

@@ -11,14 +11,14 @@ export default function ExerciseDetails() {
     if(error || !data) return <p>Error fetching Data</p>
 
     return (<>
-        <h1>{data?.name}</h1>
+        <h1>{data.name}</h1>
         <div>
             {data && <div>
                 <ul>
-                    {data?.muscleGroups.map((muscle, index) => <li key={index}>{muscle}</li>)}
+                    {data.muscleGroups.map(muscle => <li key={muscle}>{muscle}</li>)}
                 </ul>
                 <ol>
-                    {data?.instructions.map((instruction, index) => <li key={index}>{instruction}</li>)}
+                    {data.instructions.map(instruction => <li key={instruction}>{instruction}</li>)}
                 </ol>
             </div>}
         </div>
