@@ -7,8 +7,8 @@ export default function ExerciseDetails() {
     const { id } = router.query
     const { data, error, isLoading } = useSWR(`/api/exercises/${id}`)
 
-    if (isLoading) return <p>Loading...</p>
-    if (error) return <p>Error fetching Data</p>
+    if(isLoading) return <p>Loading...</p> 
+    if(error || !data) return <p>Error fetching Data</p>
 
     return (<>
         <h1>{data?.name}</h1>
