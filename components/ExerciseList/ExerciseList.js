@@ -14,7 +14,7 @@ export default function ExerciseList() {
           <h2>{exercise.name}</h2>
           <img src={exercise.imageUrl} width={120} height={200} />
           <ul>
-            {exercise.muscleGroups.map((muscle, index) => <li key={index}>{muscle}</li>)}
+            {exercise.muscleGroups.map(muscle => <li key={muscle}>{muscle}</li>)}
           </ul>
         </Link>))}
   </>
