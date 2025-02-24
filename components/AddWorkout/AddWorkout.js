@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
 
-export default function AddWorkout() {
+export default function AddWorkout({ setVisible }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
-    const [visible, setVisible] = useState(false);
     const [exerciseSelectors, setExerciseSelectors] = useState(["exercise-0"]);
 
     const addSelector = () => {
@@ -40,10 +39,7 @@ export default function AddWorkout() {
 
     return (
         <>
-            <button onClick={() => setVisible(true)}>Add Workout</button>
-            {visible && (
-                <>
-                    <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                         <label htmlFor='name'>Name</label>
                         <input name='name' type='text' required />
 
@@ -66,8 +62,6 @@ export default function AddWorkout() {
                         <button type="submit">Submit</button>
                     </form>
                     <button onClick={() => setVisible(false)}>Cancel</button>
-                </>
-            )}
         </>
     );
 }
