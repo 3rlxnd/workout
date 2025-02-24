@@ -1,3 +1,4 @@
+import AddWorkout from "@/components/AddWorkout/AddWorkout";
 import BackButtton from "@/components/BackButton/BackButtton";
 import ExerciseList from "@/components/ExerciseList/ExerciseList";
 import WorkoutList from "@/components/WorkoutList/WorkoutList";
@@ -7,6 +8,7 @@ export default function HomePage() {
     return (
         <div>
             <BackButtton />
+            <AddWorkout/>
             <h1>Workouts</h1>
             <WorkoutList/>
         </div>
