@@ -1,19 +1,20 @@
 import AddWorkout from "@/components/AddWorkout/AddWorkout";
-import BackButtton from "@/components/BackButton/BackButtton";
-import ExerciseList from "@/components/ExerciseList/ExerciseList";
+import Footer from "@/components/Footer/Footer";
 import WorkoutList from "@/components/WorkoutList/WorkoutList";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function HomePage() {
+export default function Workouts() {
     const [visible, setVisible] = useState(false);
-    return (
+    return (<>
         <div>
-            <BackButtton />
             <button onClick={() => setVisible(true)}>Add Workout</button>
-            {visible && <AddWorkout setVisible={setVisible}/>}
+            {visible && <AddWorkout setVisible={setVisible} />}
             <h1>Workouts</h1>
-            <WorkoutList/>
+            <WorkoutList />
+
         </div>
+        <Footer />
+    </>
     );
 }

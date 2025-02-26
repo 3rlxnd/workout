@@ -1,12 +1,14 @@
 import ExerciseList from "@/components/ExerciseList/ExerciseList";
+import Footer from "@/components/Footer/Footer";
 import Link from "next/link";
 
 export default function HomePage() {
-  return (
+  return (<>
     <div>
-      <Link href={'/workouts'}>Workouts</Link>
       <h1>Exercises</h1>
       <ExerciseList />
     </div>
+    <Footer/>
+    </>
   );
 }

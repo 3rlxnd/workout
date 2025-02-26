@@ -1,4 +1,3 @@
-import BackButtton from "@/components/BackButton/BackButtton";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -17,8 +16,7 @@ export default function Start() {
 
   return (
     <>
-      <BackButtton />
-      <h1>Let's Go!</h1>
+      <Link href={'/workouts'}>Back</Link>
       <h1>{data.name}</h1>
       <div>
         {exercise.name}
