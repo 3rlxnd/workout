@@ -1,5 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'
+import DeleteWorkout from '../DeleteWorkout/DeleteWorkout'
 
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
@@ -20,6 +21,7 @@ export default function WorkoutList() {
             </li>
           ))}
         </ul>
+        <DeleteWorkout id={workout._id}/>
       </div>))}
   </>
   )

@@ -21,5 +21,13 @@ export default async function handler(req, res) {
       return res.status(500).json('Error creating Workout');
     }
   }
+  if (req.method === 'DELETE') {
+    try {
+      await Workout.findByIdAndDelete(req.body);
+      return res.status(200).json('Deleted Workout');
+    } catch (error) {
+      return res.status(500).json('Error deleting Workout');
+    }
+  }
   return res.status(405).json('Method not allowed')
 }
