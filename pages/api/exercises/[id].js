@@ -1,9 +1,17 @@
-import exercises from '../../../lib/resources/exercises.json'
+import dbConnect from '@/lib/database/connect';
+import Exercise from '@/lib/database/models/Exercise';
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
     if (req.method === 'GET') {
-        const { id } = req.query
-        const exercise = exercises.find(exercise => exercise.id === id)
-        res.status(200).json(exercise);
+        try {
+            await dbConnect()
+            const { id } = req.query
+            const exercise = await Exercise.findById(id)
+            return res.status(200).json(exercise);
+        } catch (error) {
+            return res.status(404).json('Error loading Data');
+        }
     }
+
+    return res.status(405).json('Method not allowed')
 }
