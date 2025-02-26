@@ -1,6 +1,6 @@
-import React from 'react'
 import useSWR from 'swr'
 import DeleteWorkout from '../DeleteWorkout/DeleteWorkout'
+import Link from 'next/link'
 
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
@@ -22,6 +22,7 @@ export default function WorkoutList() {
           ))}
         </ul>
         <DeleteWorkout id={workout._id}/>
+        <Link href={`training/${workout._id}`}>Start</Link>
       </div>))}
   </>
   )
