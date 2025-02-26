@@ -5,19 +5,23 @@ import useSWR from 'swr'
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
 
-  if(isLoading) return <p>Loading...</p> 
-  if(error || !data) return <p>Error fetching Data</p>
+  if (isLoading) return <p>Loading...</p>
+  if (error || !data) return <p>Error fetching Data</p>
 
   return (<>
     {data?.map(workout => (
-      <div key={workout.id}>
+      <div key={workout._id}>
         <h2>{workout.name}</h2>
         <ul>
-          {workout.exercises.map(exercise => <li key={exercise.exerciseId}>
-            <p>{exercise.exerciseId}</p>
-            <p>Sets: {exercise.sets}</p>
-            <p>Reps: {exercise.reps}</p>
-          </li>)}
+          {workout.exercises.map((item) => {
+            const exercise = item.exercise;
+
+            return <li key={exercise._id}>
+              <p>{exercise.name}</p>
+              <p>Sets: {item.sets}</p>
+              <p>Reps: {item.reps}</p>
+            </li>
+          })}
         </ul>
       </div>))}
   </>

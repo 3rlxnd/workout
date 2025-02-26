@@ -10,7 +10,7 @@ export default function ExerciseList() {
   
   return (<>
       {data?.map(exercise => (
-        <Link href={`/exercises/${exercise.id}`} key={exercise.id}>
+        <Link href={`/exercises/${exercise._id}`} key={exercise._id}>
           <h2>{exercise.name}</h2>
           <img src={exercise.imageUrl} width={120} height={200} />
           <ul>
