@@ -14,13 +14,13 @@ export default function CategoryFilter({filter, setFilter}) {
         return filter === category ? setFilter(null) : setFilter(category)
     }
 
-    return (<>
-    <Tag style={!filter ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Tag>
-        {data.map(category => <Tag style={filter === category ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Tag>)}
-    </>)
+    return (<FilterContainer>
+    <Filter style={!filter ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
+        {data.map(category => <Filter style={filter === category ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
+    </FilterContainer>)
 }
 
-const Tag = styled.button`
+const Filter = styled.button`
 background-color:rgb(230, 230, 230);
 border: none;
 padding: 5px 10px;
@@ -28,3 +28,8 @@ font-weight: bold;
 color: grey;
 border-radius: 50px
 `
+
+const FilterContainer = styled.div`
+padding: 20px;
+display: flex;
+gap: 20px`
