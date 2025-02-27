@@ -1,12 +1,26 @@
 import React from 'react'
 import useSWR from 'swr'
-import DeleteWorkout from '../DeleteWorkout/DeleteWorkout'
 
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
 
   if (isLoading) return <p>Loading...</p>
   if (error || !data) return <p>Error fetching Data</p>
+
+  async function handleDelete(id) {
+    const response = await fetch(`/api/workouts/${id}`, {
+      method: 'DELETE',
+      headers: {
+        "Content-Type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      console.error('Error deleting Workout');
+    } else {
+      mutate("/api/workouts");
+    }
+  }
 
   return (<>
     {data.map(workout => (
@@ -21,7 +35,7 @@ export default function WorkoutList() {
             </li>
           ))}
         </ul>
-        <DeleteWorkout id={workout._id}/>
+        <button onClick={() => handleDelete(workout._id)}>Delete</button>
       </div>))}
   </>
   )
