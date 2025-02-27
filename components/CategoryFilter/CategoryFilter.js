@@ -26,7 +26,8 @@ const FilterContainer = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  margin: 20px;
+  margin-left: 20px;
+  padding: 20px 20px 0 0;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   
@@ -38,6 +39,7 @@ const FilterContainer = styled.div`
 const Filter = styled.button`
   background-color:#292830;
   border: none;
+  font-size: 1rem;
   padding: 6px 12px;
   font-weight: bold;
   color:rgb(217, 217, 217);

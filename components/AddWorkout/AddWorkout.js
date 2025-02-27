@@ -1,4 +1,4 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClose, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -15,17 +15,17 @@ export default function AddWorkout({ setVisible }) {
 
     const [selectedExercises, setSelectedExercises] = useState({});
 
-const handleSelectChange = (e, selector) => {
-    setSelectedExercises(prev => ({
-        ...prev,
-        [selector]: e.target.value
-    }));
-};
+    const handleSelectChange = (e, selector) => {
+        setSelectedExercises(prev => ({
+            ...prev,
+            [selector]: e.target.value
+        }));
+    };
 
-function handleDeleteSelector(selector) {
-    setExerciseSelectors(prev => prev.filter(exercise => exercise !== selector));
-    console.log(selectedExercises)
-}
+    function handleDeleteSelector(selector) {
+        setExerciseSelectors(prev => prev.filter(exercise => exercise !== selector));
+        console.log(selectedExercises)
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -55,60 +55,66 @@ function handleDeleteSelector(selector) {
             setExerciseSelectors(["exercise-0"]);
             mutate("/api/workouts");
         }
-
     }
 
     return (
         <PopUp>
-            <WorkoutsHeader>
-                <PageTitle text={'New Workout'}/>
-                <CloseButton onClick={() => {
-                    setVisible(false)
-                }}><FontAwesomeIcon icon={faClose} /></CloseButton>
-            </WorkoutsHeader>
             <Form onSubmit={handleSubmit}>
-                <label htmlFor='name'>Name</label>
-                <Input name='name' type='text' required />
-                {exerciseSelectors.map((selector, index) => (
-    <Selector key={selector}>
-        <ExerciseHeader>
-            <Subtitle htmlFor={selector}>Exercise {index + 1}</Subtitle>
-            <DeleteButton onClick={() => {
-                handleDeleteSelector(selector)
-            }}><FontAwesomeIcon icon={faClose} /></DeleteButton>
-        </ExerciseHeader>
-        
-        <Select 
-            name={selector} 
-            required 
-            onChange={(e) => handleSelectChange(e, selector)}
-        >
-            <option value="">Select Exercise</option>
-            {data && data.map(exercise => (
-                <option key={exercise._id} value={exercise._id}>
-                    {exercise.name}
-                </option>
-            ))}
-        </Select>
+                <WorkoutsHeader>
 
-        {/* Conditionally render inputs */}
-        {selectedExercises[selector] && (
-            <>
-                <label htmlFor={`${selector}-sets`}>Sets</label>
-                <Input type='number' name={`${selector}-sets`} required />
-                
-                <label htmlFor={`${selector}-reps`}>Reps</label>
-                <Input type='number' name={`${selector}-reps`} required />
-                
-                <label htmlFor={`${selector}-weight`}>Weight</label>
-                <Input type='number' name={`${selector}-weight`} required />
-            </>
-        )}
-    </Selector>
-))}
-                <br />
-                <button type="button" onClick={addSelector}>Add Exercise</button>
-                <button type="submit">Submit</button>
+                    <CloseButton type='button' onClick={() => {
+                        setVisible(false)
+                    }}><FontAwesomeIcon icon={faClose} /></CloseButton>
+
+                    <SubmitButton type="submit"><FontAwesomeIcon icon={faCheck}/></SubmitButton>
+                </WorkoutsHeader>
+                <NameInput name='name' type='text' placeholder={'Workout Name'} required />
+                {exerciseSelectors.map((selector, index) => (
+                    <Selector key={selector}>
+                        <ExerciseHeader>
+                            <Subtitle htmlFor={selector}>Exercise {index + 1}</Subtitle>
+                            <DeleteButton type='button' onClick={() => {
+                                handleDeleteSelector(selector)
+                            }}><FontAwesomeIcon icon={faClose} /></DeleteButton>
+                        </ExerciseHeader>
+
+                        <Select
+                            name={selector}
+                            required
+                            onChange={(e) => handleSelectChange(e, selector)}
+                        >
+                            <option value="">Select Exercise</option>
+                            {data && data.map(exercise => (
+                                <option key={exercise._id} value={exercise._id}>
+                                    {exercise.name}
+                                </option>
+                            ))}
+                        </Select>
+
+                        {selectedExercises[selector] && (
+                            <>
+                                <label htmlFor={`${selector}-sets`}>Sets</label>
+                                <Input type='number' name={`${selector}-sets`} required />
+
+                                <label htmlFor={`${selector}-reps`}>Reps</label>
+                                <Input type='number' name={`${selector}-reps`} required />
+
+                                <label htmlFor={`${selector}-weight`}>Weight</label>
+                                <Input type='number' name={`${selector}-weight`} required />
+                            </>
+                        )}
+                    </Selector>
+
+                ))}
+                <AddButton type="button" onClick={addSelector}>
+                    <FontAwesomeIcon icon={faPlus} />
+                    <span>Add Exercise</span>
+                </AddButton>
+                {/* <CloseButton onClick={() => {
+                    setVisible(false)
+                }}><FontAwesomeIcon icon={faCheck} /></CloseButton>
+                 */}
+                {/* <SubmitButton type="submit">Save</SubmitButton> */}
             </Form>
         </PopUp>
     );
@@ -117,7 +123,7 @@ function handleDeleteSelector(selector) {
 const WorkoutsHeader = styled.div`
 display: flex;
 justify-content: space-between;
-padding: 20px;
+margin-bottom: 20px;
 `
 
 const ExerciseHeader = styled.div`
@@ -126,6 +132,34 @@ justify-content: space-between;
 `
 
 const CloseButton = styled.button`
+background-color: #292830;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50px;
+border: none;
+font-weight: 200;
+font-size: 1rem;
+`
+const AddButton = styled.button`
+display: flex;
+color:rgb(193, 193, 193);
+gap: 10px;
+font-size: 1rem;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color: #292830;
+border-radius: 25px;
+border: none;
+padding: 10px
+`
+
+const SubmitButton = styled.button`
 background-color: #292830;
 color: white;
 display: flex;
@@ -147,9 +181,6 @@ font-weight: 200;
 font-size: 1rem;
 padding: 0;
 `
-
-const Title = styled.h1`
-margin: 0`
 
 const Subtitle = styled.h3`
 margin: 0;
@@ -179,7 +210,8 @@ display: flex;
 flex-direction: column;
 text-decoration: none;
 padding: 20px;
-background: linear-gradient(to top, #292830, #232227);
+// background: linear-gradient(to top, #292830, #232227);
+background-color: #292830;
 border-radius: 25px;
 padding-bottom: 20px;
 border: 01px solid rgb(49, 49, 49)
@@ -203,3 +235,14 @@ padding: 10px;
 background-color: #1E1D22;
 border-radius: 10px;
 border: none;`
+
+const NameInput = styled.input`
+font-family: verdana;
+font-size: 1.2rem;
+color: white;
+padding: 0;
+background-color:rgba(0, 0, 0, 0);
+border: none;
+padding-bottom: 10px;
+margin-bottom: 20px;
+border-bottom: 1px solid white;`

@@ -46,7 +46,7 @@ export default function WorkoutList() {
         </ListContainer>
         <Buttons>
 
-          {/* <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton> */}
+          <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
         </Buttons>
       </Card>))}
   </CardContainer>
