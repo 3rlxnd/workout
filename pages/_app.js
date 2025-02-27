@@ -12,6 +12,6 @@ export default function App({ Component, pageProps }) {
     value={{ fetcher }}
   >
     <GlobalStyle/>
-    <Component {...pageProps} />
+    <Component {...pageProps}/>
   </SWRConfig>
 )}

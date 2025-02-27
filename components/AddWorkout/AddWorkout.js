@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 import useSWR, { mutate } from 'swr';
 
 export default function AddWorkout({ setVisible }) {
@@ -39,32 +40,75 @@ export default function AddWorkout({ setVisible }) {
 
     }
 
+    document.body.style.overflow = 'hidden';
+
     return (
-        <>
-            <form onSubmit={handleSubmit}>
+        <PopUp>
+            <h2>Add Workout</h2>
+            <Form onSubmit={handleSubmit}>
                 <label htmlFor='name'>Name</label>
-                <input name='name' type='text' required />
+                <Input name='name' type='text' required />
                 {exerciseSelectors.map((selector) => (
-                    <div key={selector}>
-                        <label htmlFor={selector}>Exercise</label>
-                        <select name={selector} required>
+                    <Selector key={selector}>
+                        {/* <h3 htmlFor={selector}>Exercise {Number(selector.split('-')[1]) + 1}</h3> */}
+                        <Select name={selector} required>
                             <option value="">Select Exercise</option>
                             {data && data.map(exercise => (
                                 <option key={exercise._id} value={exercise._id}>
                                     {exercise.name}
                                 </option>
                             ))}
-                        </select>
+                        </Select>
                         <label htmlFor={`${selector}-sets`}>Sets</label>
-                        <input type='number' name={`${selector}-sets`} required />
+                        <Input type='number' name={`${selector}-sets`} required />
                         <label htmlFor={`${selector}-reps`}>Reps</label>
-                        <input type='number' name={`${selector}-reps`} required />
-                    </div>
+                        <Input type='number' name={`${selector}-reps`} required />
+                    </Selector>
                 ))}
-                <button type="button" onClick={addSelector}>+</button>
+                <br/>
+                <button type="button" onClick={addSelector}>Add Exercise</button>
                 <button type="submit">Submit</button>
-            </form>
-            <button onClick={() => setVisible(false)}>Cancel</button>
-        </>
+            </Form>
+            <button onClick={() => {
+                setVisible(false)
+                document.body.style.overflow = '';
+            }}>Cancel</button>
+        </PopUp>
     );
 }
+
+const PopUp = styled.div`
+position: fixed;
+bottom: 0;
+padding: 20px;
+flex-direction: column;
+height: 90vh;
+width: 100%;
+background-color: white;
+margin-bottom: 80px;
+overflow-y: auto;`
+
+const Form = styled.form`
+display: flex;
+flex-direction: column;`
+
+const Selector = styled.div`
+display: flex;
+flex-direction: column;
+padding: 20px;
+border-radius: 10px;
+border: 1px solid lightgray;`
+
+const Select = styled.select`
+font-family: verdana;
+font-size: 1rem;
+padding: 10px;
+border-radius: 10px;
+border: 1px solid lightgray;`
+
+const Input = styled.input`
+font-family: verdana;
+font-size: 1rem;
+padding: 10px;
+border-radius: 10px;
+border: 1px solid lightgray;`

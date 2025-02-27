@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-
 export default createGlobalStyle`
-  *,
+*,
   *::before,
   *::after {
     box-sizing: border-box;
@@ -9,6 +8,7 @@ export default createGlobalStyle`
 
   body {
     margin: 0;
-    font-family: system-ui;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
   }
 `;
