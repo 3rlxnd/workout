@@ -14,7 +14,7 @@ export default function WorkoutList() {
     if (!response.ok) {
       console.error('Error deleting Workout');
     } else {
-      mutate("/api/workouts");
+      mutate();
     }
   }
 
