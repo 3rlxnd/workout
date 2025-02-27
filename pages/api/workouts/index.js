@@ -8,7 +8,6 @@ export default async function handler(req, res) {
       const workouts = await Workout.find().populate('exercises.exercise')
       return res.status(200).json(workouts)
     } catch (error) {
-
       return res.status(500).json('Error fetching Data');
     }
   }
