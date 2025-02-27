@@ -1,5 +1,4 @@
-import React from 'react'
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
@@ -9,10 +8,7 @@ export default function WorkoutList() {
 
   async function handleDelete(id) {
     const response = await fetch(`/api/workouts/${id}`, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json",
-      }
+      method: 'DELETE'
     });
 
     if (!response.ok) {
