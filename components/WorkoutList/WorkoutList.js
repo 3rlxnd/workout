@@ -1,6 +1,6 @@
 
 export default function WorkoutList() {
-  const { data, error, isLoading } = useSWR('/api/workouts')
+  const { data, error, isLoading, mutate } = useSWR('/api/workouts');
 
   if (isLoading) return <p>Loading...</p>
   if (error || !data) return <p>Error fetching Data</p>
