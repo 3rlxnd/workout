@@ -1,4 +1,3 @@
-import useSWR, { mutate } from 'swr'
 
 export default function WorkoutList() {
   const { data, error, isLoading } = useSWR('/api/workouts')
