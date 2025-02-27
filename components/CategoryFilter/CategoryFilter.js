@@ -20,16 +20,28 @@ export default function CategoryFilter({filter, setFilter}) {
     </FilterContainer>)
 }
 
-const Filter = styled.button`
-background-color:rgb(230, 230, 230);
-border: none;
-padding: 5px 10px;
-font-weight: bold;
-color: grey;
-border-radius: 50px
+const FilterContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  margin: 20px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
-const FilterContainer = styled.div`
-padding: 20px;
-display: flex;
-gap: 20px`
+const Filter = styled.button`
+  background-color:#292830;
+  border: none;
+  padding: 6px 12px;
+  font-weight: bold;
+  color:rgb(217, 217, 217);
+  border-radius: 50px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+`

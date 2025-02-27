@@ -31,16 +31,21 @@ export default function ExerciseList() {
   )
 }
 
-const Card = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
+const Card = styled.div`
+display: flex;
+flex-direction: column;
+text-decoration: none;
+padding: 0 20px;
+background: linear-gradient(to top, #292830, #232227);
+border-radius: 25px;
+padding-bottom: 20px;
+border: 01px solid rgb(49, 49, 49)
 `;
 
 const CardContainer = styled.div`
-  display: flex;
-  padding: 20px;
-  gap: 0px;
-  flex-direction: column;
-  margin-bottom: 80px
-`;Card
+display: flex;
+padding: 20px;
+gap: 20px;
+flex-direction: column;
+margin-bottom: 80px
+`;

@@ -1,4 +1,7 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import { Fragment } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
 
@@ -20,32 +23,53 @@ export default function WorkoutList() {
     }
   }
 
-  
+
   return (<CardContainer>
-    {data.map(workout => (<>
-        <h2>{workout.name}</h2>
+    {data.map(workout => (
       <Card key={workout._id}>
         <ListContainer>
-          {workout.exercises.map(({ exercise, sets, reps }) => (<>
-            <ListItem key={exercise._id}>
-              <p>{exercise.name}</p>
-              <p>Sets: {sets}</p>
-              <p>Reps: {reps}</p>
+      <h2>{workout.name}</h2>
+          {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
+            <ListItem>
+              <Textwrapper>
+                <Text>{exercise.name}</Text>
+                {weight && <Text style={{color: 'grey'}}>{weight}kg</Text>}
+              </Textwrapper>
+              <Textwrapper>
+                <Text2>{reps} reps</Text2>
+                <Text2>{sets} sets</Text2>
+              </Textwrapper>
             </ListItem>
-              <hr/>
-              </>
+          {index < workout.exercises.length - 1 && <Divider />}
+          </Fragment>
           ))}
         </ListContainer>
         <Buttons>
 
-        <button onClick={() => handleDelete(workout._id)}>Delete</button>
+          {/* <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton> */}
         </Buttons>
-      </Card>
-      </>))}
+      </Card>))}
   </CardContainer>
   )
 }
 
+
+
+const Textwrapper = styled.div`
+margin: 0;
+display: flex;
+flex-direction: column;`
+
+const Text = styled.span`
+margin: 0;
+font-weight: 200;
+text-align: left;`
+
+const Text2 = styled.span`
+margin: 0;
+font-weight: 200;
+font-size: 12px;
+text-align: right;`
 
 const Buttons = styled.div`
 display: flex;
@@ -57,15 +81,16 @@ display: flex;
 flex-direction: column;
 text-decoration: none;
 padding: 0 20px;
-background-color:rgb(240, 240, 240);
-border-radius: 10px;
-padding-bottom: 20px
+background: linear-gradient(to top, #292830, #232227);
+border-radius: 25px;
+padding-bottom: 20px;
+border: 01px solid rgb(49, 49, 49)
 `;
 
 const CardContainer = styled.div`
 display: flex;
 padding: 20px;
-gap: 0px;
+gap: 20px;
 flex-direction: column;
 margin-bottom: 80px
 `;
@@ -80,14 +105,15 @@ display: flex;
 align-items: center;
 justify-content: space-between`
 
+const Divider = styled.hr`
+border: 0.5px solid grey`
+
 const DeleteButton = styled.button`
-border: 1px solid red;
-background-color: lightred;
-color: red;
+border: none;
+background-color: #00000000;
+color: #5B5A60;
 font-family: verdana;
-font-size: 1rem;
-padding: 10px 20px;
-border-radius: 5px`
+font-size: 1rem;`
 
 const StartButton = styled(Link)`
 background-color:rgb(0, 185, 213);
