@@ -1,3 +1,4 @@
+import useSWR from "swr";
 
 export default function WorkoutList() {
   const { data, error, isLoading, mutate } = useSWR('/api/workouts');
