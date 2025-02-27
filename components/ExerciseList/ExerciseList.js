@@ -15,7 +15,6 @@ export default function ExerciseList() {
   : data
 
   return (<>
-  {filter && console.log(filter)}
   <CategoryFilter filter={filter} setFilter={setFilter}/>
       {exercises?.map(exercise => (
         <Link href={`/exercises/${exercise._id}`} key={exercise._id}>

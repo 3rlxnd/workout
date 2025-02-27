@@ -1,5 +1,3 @@
-import { execOnce } from 'next/dist/shared/lib/utils'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import useSWR from 'swr'
@@ -13,10 +11,20 @@ export default function CategoryFilter({filter, setFilter}) {
     if (error || !data) return <p>Error fetching Data</p>
 
     function handleFilter(category) {
-        filter === category ? setFilter(null) : setFilter(category)
+        return filter === category ? setFilter(null) : setFilter(category)
     }
 
     return (<>
-        {data.map(category => <button onClick={() => handleFilter(category)} key={category._id}>{category.category}</button>)}
+    <Tag style={!filter ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Tag>
+        {data.map(category => <Tag style={filter === category ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Tag>)}
     </>)
 }
+
+const Tag = styled.button`
+background-color:rgb(230, 230, 230);
+border: none;
+padding: 5px 10px;
+font-weight: bold;
+color: grey;
+border-radius: 50px
+`
