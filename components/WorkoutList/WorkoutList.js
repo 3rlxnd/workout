@@ -1,4 +1,4 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -27,8 +27,8 @@ export default function WorkoutList() {
   return (<CardContainer>
     {data.map(workout => (
       <Card key={workout._id}>
-        <ListContainer>
           <h2>{workout.name}</h2>
+        <ListContainer>
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
               <Textwrapper $left>
@@ -44,10 +44,14 @@ export default function WorkoutList() {
           </Fragment>
           ))}
         </ListContainer>
-        <Buttons>
+          <StartButton href={`workouts/${workout._id}`}>
+            <FontAwesomeIcon icon={faPlay} />
+            <p>Start</p>
+          </StartButton>
+        {/* <Buttons>
 
           <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
-        </Buttons>
+        </Buttons> */}
       </Card>))}
   </CardContainer>
   )
@@ -74,10 +78,10 @@ const Card = styled.div`
 display: flex;
 flex-direction: column;
 text-decoration: none;
-padding: 0 20px;
+padding: 20px;
+gap: 20px;
 background: linear-gradient(to top, #292830, #232227);
 border-radius: 25px;
-padding-bottom: 20px;
 border: 01px solid rgb(49, 49, 49)
 `;
 
@@ -110,11 +114,15 @@ font-family: verdana;
 font-size: 1rem;`
 
 const StartButton = styled(Link)`
-background-color:rgb(0, 185, 213);
+background-color: lightblue;
 font-size: 1rem;
+height: 40px;
 padding: 10px 20px;
-border-radius: 5px;
+border-radius: 30px;
 text-decoration: none;
 display: flex;
-color: white;
-justify-content: center`
+gap: 10px;
+color: black;
+justify-content: center;
+align-items: center;
+`

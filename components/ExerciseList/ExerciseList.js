@@ -28,7 +28,7 @@ export default function ExerciseList() {
           <Divider/>
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
-              <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} />
+              {/* <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} /> */}
               <span>{muscle}</span>
             </Tag>)}
 
@@ -72,7 +72,7 @@ gap: 10px;
 color:gray;
 font-size: 14px;
 align-items: center;
-padding: 5px 10px 5px 5px;
+padding: 5px 10px;
 border-radius: 50px;`
 
 const ExerciseHeader = styled.div`
