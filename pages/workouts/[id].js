@@ -1,3 +1,4 @@
+import Counter from "@/components/Counter/Counter";
 import Loader from "@/components/Loader/Loader";
 import PageTitle from "@/components/Title/Title";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
@@ -25,6 +26,9 @@ export default function Start() {
         <PageTitle text={data.name}/>
         <Button type='button' onClick={() => router.back()}><FontAwesomeIcon icon={faClose} /></Button>
       </WorkoutsHeader>
+      <Counter 
+      exercise={exercise} sets={data.exercises[current].sets} reps={data.exercises[current].reps}
+      />
       <div>
         {exercise.name}
         <p>Reps: {data.exercises[current].reps}</p>
