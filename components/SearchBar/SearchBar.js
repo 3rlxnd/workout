@@ -54,7 +54,7 @@ width: ${(props) => props.$width};
 font-family: verdana;
 font-size: 1rem;
 padding: 5px 0px;
-transition: width 0.5s ease;
+transition: width 0.3s ease;
 box-sizing: border-box;
 outline: none;
 color: white;

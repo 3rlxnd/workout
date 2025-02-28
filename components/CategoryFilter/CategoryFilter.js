@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import useSWR from 'swr'
 import Loader from '../Loader/Loader'
 
 export default function CategoryFilter({filter, setFilter}) {
-    const router = useRouter()
-    const { id } = router.query
     const { data, error, isLoading } = useSWR(`/api/categories`)
 
     if (isLoading) return <Loader/>
@@ -27,8 +24,8 @@ const FilterContainer = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  margin: 0 20px;
-  padding-top: 20px;
+  margin-left: 20px;
+  padding: 20px 20px 0 0;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   
