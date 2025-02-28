@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import styled from 'styled-components';
 import useSWR, { mutate } from 'swr';
-import PageTitle from '../Title/Title';
 
 export default function AddWorkout({ setVisible }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
@@ -61,11 +60,9 @@ export default function AddWorkout({ setVisible }) {
         <PopUp>
             <form onSubmit={handleSubmit}>
                 <WorkoutsHeader>
-
                     <CloseButton type='button' onClick={() => {
                         setVisible(false)
                     }}><FontAwesomeIcon icon={faClose} /></CloseButton>
-
                     <SubmitButton type="submit"><FontAwesomeIcon icon={faCheck} /></SubmitButton>
                 </WorkoutsHeader>
                 <Form>
@@ -111,11 +108,6 @@ export default function AddWorkout({ setVisible }) {
                         <span>Add Exercise</span>
                     </AddButton>
                 </Form>
-                {/* <CloseButton onClick={() => {
-                    setVisible(false)
-                }}><FontAwesomeIcon icon={faCheck} /></CloseButton>
-                 */}
-                {/* <SubmitButton type="submit">Save</SubmitButton> */}
             </form>
         </PopUp>
     );
