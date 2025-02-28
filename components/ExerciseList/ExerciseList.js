@@ -29,7 +29,6 @@ export default function ExerciseList() {
           <Divider/>
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
-              {/* <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} /> */}
               <span>{muscle}</span>
             </Tag>)}
 
