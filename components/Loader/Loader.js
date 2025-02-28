@@ -1,27 +1,50 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 export default function Loader() {
   return (
-    <Container/>
-  )
+    <Container className="loader"/>
+  );
 }
 
 const Container = styled.div`
-height: 50px;
-  aspect-ratio: 2;
-  border: 10px solid #000;
-  box-sizing: border-box;
-  background: 
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) center/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) right/20px 20px,
-    #000;
-  background-repeat: no-repeat;
-  filter: blur(4px) contrast(10);
-  animation: l14 1s infinite;
-}
-@keyframes l14 {
-  100%  {background-position:right,left,center,right}
-}`
+position: fixed;
+left: 50%;
+top: 50%;
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  animation-fill-mode: both;
+  animation: bblFadInOut 1.8s infinite ease-in-out;
+  color: #FFF;
+  font-size: 7px;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    animation-fill-mode: both;
+    animation: bblFadInOut 1.8s infinite ease-in-out;
+  }
+
+  &::before {
+    left: -3.5em;
+    animation-delay: -0.32s;
+  }
+
+  &::after {
+    left: 3.5em;
+  }
+
+  @keyframes bblFadInOut {
+    0%, 80%, 100% { box-shadow: 0 2.5em 0 -1.3em; }
+    40% { box-shadow: 0 2.5em 0 0; }
+  }
+`;
