@@ -5,7 +5,6 @@ export default async function handler(req, res) {
     await dbConnect()
     if (req.method === 'GET') {
         try {
-            await dbConnect()
             const { id } = req.query
             const workout = await Workout.findById(id).populate({
                 path: 'exercises.exercise', // Nested populate
