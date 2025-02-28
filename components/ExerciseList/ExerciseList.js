@@ -4,29 +4,36 @@ import CategoryFilter from '../CategoryFilter/CategoryFilter'
 import { useState } from 'react'
 import styled from 'styled-components'
 import Loader from '../Loader/Loader'
+import SearchBar from '../SearchBar/SearchBar'
 
 export default function ExerciseList() {
   const [filter, setFilter] = useState(null)
+  const [search, setSearch] = useState('')
   const { data, error, isLoading } = useSWR('/api/exercises')
 
-  if (isLoading) return <Loader/>
+  if (isLoading) return <Loader />
   if (error || !data) return <p>Error fetching Data</p>
 
+  const filtered = (array) => {
+    return array.filter(exercise => exercise.name.toLowerCase().includes(search.toLowerCase()))
+  }
+
   const exercises = filter
-    ? filter.exercises
-    : data
+    ? filtered(filter.exercises)
+    : filtered(data)
 
   return (<>
+    <SearchBar setSearch={setSearch} />
     <CategoryFilter filter={filter} setFilter={setFilter} />
     <CardContainer>
-      {exercises?.map(exercise => (
+      {exercises.map(exercise => (
         <Card href={`/exercises/${exercise._id}`} key={exercise._id}>
           <ExerciseHeader>
             <h2>{exercise.name}</h2>
             <Difficulty>{exercise.difficulty}</Difficulty>
           </ExerciseHeader>
           <Description>{exercise.description}</Description>
-          <Divider/>
+          <Divider />
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
               <span>{muscle}</span>
