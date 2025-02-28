@@ -1,3 +1,8 @@
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+import { Fragment } from "react";
+import styled from "styled-components";
 import useSWR from "swr";
 
 export default function WorkoutList() {
@@ -18,21 +23,98 @@ export default function WorkoutList() {
     }
   }
 
-  return (<>
+
+  return (<CardContainer>
     {data.map(workout => (
-      <div key={workout._id}>
-        <h2>{workout.name}</h2>
-        <ul>
-          {workout.exercises.map(({ exercise, sets, reps }) => (
-            <li key={exercise._id}>
-              <p>{exercise.name}</p>
-              <p>Sets: {sets}</p>
-              <p>Reps: {reps}</p>
-            </li>
+      <Card key={workout._id}>
+        <ListContainer>
+          <h2>{workout.name}</h2>
+          {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
+            <ListItem>
+              <Textwrapper $left>
+                <Text>{exercise.name}</Text>
+                {weight && <Text $grey>{exercise.difficulty}</Text>}
+              </Textwrapper>
+              <Textwrapper>
+                <Text>{sets} x {reps}</Text>
+                {weight && <Text $grey>{weight}kg</Text>}
+              </Textwrapper>
+            </ListItem>
+            {index < workout.exercises.length - 1 && <Divider />}
+          </Fragment>
           ))}
-        </ul>
-        <button onClick={() => handleDelete(workout._id)}>Delete</button>
-      </div>))}
-  </>
+        </ListContainer>
+        <Buttons>
+
+          <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
+        </Buttons>
+      </Card>))}
+  </CardContainer>
   )
 }
+
+const Textwrapper = styled.div`
+text-align: ${(props) => (props.$left ? "left" : "right")};
+margin: 0;
+display: flex;
+gap: 5px;
+flex-direction: column;`
+
+const Text = styled.span`
+color: ${(props) => (props.$grey ? "grey" : "white")};
+margin: 0;
+font-weight: 200;`
+
+const Buttons = styled.div`
+display: flex;
+justify-content: flex-end;
+gap: 10px`
+
+const Card = styled.div`
+display: flex;
+flex-direction: column;
+text-decoration: none;
+padding: 0 20px;
+background: linear-gradient(to top, #292830, #232227);
+border-radius: 25px;
+padding-bottom: 20px;
+border: 01px solid rgb(49, 49, 49)
+`;
+
+const CardContainer = styled.div`
+display: flex;
+padding: 20px;
+gap: 20px;
+flex-direction: column;
+margin-bottom: 80px
+`;
+
+const ListContainer = styled.ul`
+list-style: none;
+padding: 0
+`
+
+const ListItem = styled.li`
+display: flex;
+align-items: center;
+justify-content: space-between`
+
+const Divider = styled.hr`
+border: 0.5px solid black`
+
+const DeleteButton = styled.button`
+border: none;
+background-color: #00000000;
+color: #5B5A60;
+font-family: verdana;
+font-size: 1rem;`
+
+const StartButton = styled(Link)`
+background-color:rgb(0, 185, 213);
+font-size: 1rem;
+padding: 10px 20px;
+border-radius: 5px;
+text-decoration: none;
+display: flex;
+color: white;
+justify-content: center`

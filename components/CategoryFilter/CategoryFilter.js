@@ -14,17 +14,38 @@ export default function CategoryFilter({filter, setFilter}) {
         return filter === category ? setFilter(null) : setFilter(category)
     }
 
-    return (<>
-    <Tag style={!filter ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Tag>
-        {data.map(category => <Tag style={filter === category ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Tag>)}
-    </>)
+    return (<FilterContainer>
+    <Filter style={!filter ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
+        {data.map(category => <Filter style={filter === category ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
+    </FilterContainer>)
 }
 
-const Tag = styled.button`
-background-color:rgb(230, 230, 230);
-border: none;
-padding: 5px 10px;
-font-weight: bold;
-color: grey;
-border-radius: 50px
+const FilterContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  margin-left: 20px;
+  padding: 20px 20px 0 0;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+const Filter = styled.button`
+  // background-color:#292830;
+background: linear-gradient(to top, #292830, #232227);
+border: 01px solid rgb(49, 49, 49);
+  border: none;
+  font-size: 1rem;
+  padding: 6px 12px;
+  font-weight: bold;
+  color:rgb(217, 217, 217);
+  border-radius: 50px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 `

@@ -1,12 +1,22 @@
 import ExerciseList from "@/components/ExerciseList/ExerciseList";
-import Link from "next/link";
+import Footer from "@/components/Footer/Footer";
+import PageTitle from "@/components/Title/Title";
+import styled from "styled-components";
 
 export default function HomePage() {
   return (
     <div>
-      <Link href={'/workouts'}>Workouts</Link>
-      <h1>Exercises</h1>
+      <WorkoutsHeader>
+        <PageTitle text={'Exercises'} />
+      </WorkoutsHeader>
       <ExerciseList />
+      <Footer />
     </div>
   );
 }
+
+const WorkoutsHeader = styled.div`
+padding: 20px;
+display: flex;
+justify-content: space-between;
+`
