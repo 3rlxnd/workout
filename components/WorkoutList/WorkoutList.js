@@ -1,4 +1,4 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -47,6 +47,10 @@ export default function WorkoutList() {
         <Buttons>
 
           <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
+          <StartButton href={`workouts/${workout._id}`}>
+            <FontAwesomeIcon icon={faPlay} />
+            <p>Start</p>
+          </StartButton>
         </Buttons>
       </Card>))}
   </CardContainer>
@@ -110,11 +114,16 @@ font-family: verdana;
 font-size: 1rem;`
 
 const StartButton = styled(Link)`
-background-color:rgb(0, 185, 213);
+background-color: lightblue;
 font-size: 1rem;
+// width: 40px;
+height: 40px;
 padding: 10px 20px;
-border-radius: 5px;
+border-radius: 30px;
 text-decoration: none;
 display: flex;
-color: white;
-justify-content: center`
+gap: 10px;
+color: black;
+justify-content: center;
+align-items: center;
+`
