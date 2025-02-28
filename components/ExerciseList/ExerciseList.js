@@ -42,7 +42,8 @@ export default function ExerciseList() {
 
 const Divider = styled.hr`
 border: 0.5px solid grey;
-width: 100%;`
+width: 100%;
+margin-top: -2px`
 
 const Tags = styled.div`
 display: flex;
