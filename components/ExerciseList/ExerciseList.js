@@ -21,17 +21,28 @@ export default function ExerciseList() {
       {exercises?.map(exercise => (
         <Card href={`/exercises/${exercise._id}`} key={exercise._id}>
           <ExerciseHeader>
-            <Title>{exercise.name}</Title>
+            <h2>{exercise.name}</h2>
+              <span style={{color: 'grey', fontWeight: 200}}>{exercise.difficulty}</span>
           </ExerciseHeader>
+        <Divider/>
           <Tags>
-            {exercise.muscleGroups.map(muscle => <Tag key={muscle}><img/>{muscle}</Tag>)}
+            {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
+              <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} />
+              <span>{muscle}</span>
+            </Tag>)}
+
           </Tags>
+
         </Card>
       ))}
     </CardContainer>
   </>
   )
 }
+
+const Divider = styled.hr`
+border: 0.5px solid grey;
+width: 100%;`
 
 const Tags = styled.div`
 display: flex;
@@ -42,17 +53,14 @@ flex-wrap: wrap;
 font-size: 14px`
 
 const Tag = styled.span`
-background-color: grey;
-padding: 5px 20px;
+background-color: #1E1D22;
+display: flex;
+gap: 10px;
+align-items: center;
+padding: 5px 15px;
 border-radius: 50px;`
 
-const Title = styled.h2`
-margin: 0;
-font-weight: 200;
-font-size: 1.2rem`
-
 const ExerciseHeader = styled.div`
-font-family: verdana;
 display: flex;
 gap: 20px;
 justify-content: space-between;

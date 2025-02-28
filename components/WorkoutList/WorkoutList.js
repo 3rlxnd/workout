@@ -53,8 +53,6 @@ export default function WorkoutList() {
   )
 }
 
-
-
 const Textwrapper = styled.div`
 margin: 0;
 display: flex;
