@@ -136,7 +136,7 @@ margin-bottom: 20px;
 position: sticky;
 top: 0;
 padding: 20px;
-background-color: black; 
+background-color: #0C0B10;; 
 `
 
 const ExerciseHeader = styled.div`
