@@ -59,6 +59,7 @@ box-sizing: border-box;
 outline: none;
 color: white;
 border: none;
+border-radius: 0;
 border-bottom: 1px solid white;
 background-color: #00000000;
 `
