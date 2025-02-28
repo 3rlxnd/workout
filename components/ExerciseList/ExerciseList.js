@@ -5,37 +5,63 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 export default function ExerciseList() {
-  const [ filter, setFilter ] = useState(null)
+  const [filter, setFilter] = useState(null)
   const { data, error, isLoading } = useSWR('/api/exercises')
-  
-  if(isLoading) return <p>Loading...</p> 
-  if(error || !data) return <p>Error fetching Data</p>
 
-  const exercises = filter 
-  ? filter.exercises 
-  : data
+  if (isLoading) return <p>Loading...</p>
+  if (error || !data) return <p>Error fetching Data</p>
+
+  const exercises = filter
+    ? filter.exercises
+    : data
 
   return (<>
-  <CategoryFilter filter={filter} setFilter={setFilter}/>
-  <CardContainer>
+    <CategoryFilter filter={filter} setFilter={setFilter} />
+    <CardContainer>
       {exercises?.map(exercise => (
         <Card href={`/exercises/${exercise._id}`} key={exercise._id}>
-          <h2>{exercise.name}</h2>
-          <img src={exercise.imageUrl} width={120} height={200} />
-          <ul>
-            {exercise.muscleGroups.map(muscle => <li key={muscle}>{muscle}</li>)}
-          </ul>
+          <ExerciseHeader>
+            <Title>{exercise.name}</Title>
+          </ExerciseHeader>
+          <Tags>
+            {exercise.muscleGroups.map(muscle => <Tag key={muscle}><img/>{muscle}</Tag>)}
+          </Tags>
         </Card>))}
-        </CardContainer>
+    </CardContainer>
   </>
   )
 }
+
+const Tags = styled.div`
+display: flex;
+width: 100%;
+padding-top: 20px;
+gap: 10px;
+flex-wrap: wrap;
+font-size: 14px`
+
+const Tag = styled.span`
+background-color: grey;
+padding: 5px 20px;
+border-radius: 50px;`
+
+const Title = styled.h2`
+margin: 0;
+font-weight: 200;
+font-size: 1.2rem`
+
+const ExerciseHeader = styled.div`
+font-family: verdana;
+display: flex;
+gap: 20px;
+justify-content: space-between;
+align-items: center;`
 
 const Card = styled.div`
 display: flex;
 flex-direction: column;
 text-decoration: none;
-padding: 0 20px;
+padding: 20px;
 background: linear-gradient(to top, #292830, #232227);
 border-radius: 25px;
 padding-bottom: 20px;
