@@ -22,10 +22,9 @@ export default function ExerciseList() {
         <Card href={`/exercises/${exercise._id}`} key={exercise._id}>
           <ExerciseHeader>
             <h2>{exercise.name}</h2>
-            <span style={{ color: 'grey', fontWeight: 200 }}>{exercise.difficulty}</span>
+            <Difficulty>{exercise.difficulty}</Difficulty>
           </ExerciseHeader>
-          <Divider />
-          <span style={{ color: 'grey', fontWeight: 200, fontSize: '14px', lineHeight: '1.25rem' }}>{exercise.description}</span>
+          <Description>{exercise.description}</Description>
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
               <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} />
@@ -40,6 +39,17 @@ export default function ExerciseList() {
   </>
   )
 }
+
+const Difficulty = styled.span`
+color: grey; 
+font-weight: 200;
+`
+
+const Description = styled.span`
+color: grey; 
+font-weight: 200; 
+font-size: 14px, line-height: 1.25rem;
+`
 
 const Divider = styled.hr`
 border: 0.5px solid grey;
