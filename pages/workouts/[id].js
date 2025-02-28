@@ -1,4 +1,3 @@
-import BackButtton from "@/components/BackButton/BackButtton";
 import Loader from "@/components/Loader/Loader";
 import PageTitle from "@/components/Title/Title";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
