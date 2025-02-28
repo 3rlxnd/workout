@@ -59,14 +59,14 @@ export default function AddWorkout({ setVisible }) {
         <PopUp>
             <form onSubmit={handleSubmit}>
                 <WorkoutsHeader>
-                    <CloseButton type='button' onClick={() => {
+                    <Button type='button' onClick={() => {
                         setVisible(false)
-                    }}><FontAwesomeIcon icon={faClose} /></CloseButton>
-                    <SubmitButton type="submit"><FontAwesomeIcon icon={faCheck} /></SubmitButton>
+                    }}><FontAwesomeIcon icon={faClose} /></Button>
+                    <Button type="submit"><FontAwesomeIcon icon={faCheck} /></Button>
                 </WorkoutsHeader>
                 <Form>
                     <NameInput name='name' type='text' placeholder={'Workout Name'} required />
-                    {exerciseSelectors.map((selector, index) => (
+                    {exerciseSelectors.map((selector) => (
                         <Selector key={selector}>
                             <ExerciseHeader>
                                 <Select
@@ -81,9 +81,9 @@ export default function AddWorkout({ setVisible }) {
                                         </option>
                                     ))}
                                 </Select>
-                                <DeleteButton type='button' onClick={() => {
+                                <Button $dark type='button' onClick={() => {
                                     handleDeleteSelector(selector)
-                                }}><FontAwesomeIcon icon={faClose} /></DeleteButton>
+                                }}><FontAwesomeIcon icon={faClose} /></Button>
                             </ExerciseHeader>
 
 
@@ -136,8 +136,8 @@ align-items: center;
 justify-content: space-between;
 `
 
-const CloseButton = styled.button`
-background-color: #292830;
+const Button = styled.button`
+background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
 color: white;
 display: flex;
 align-items: center;
@@ -162,35 +162,6 @@ background-color: #292830;
 border-radius: 25px;
 border: none;
 padding: 10px
-`
-
-const SubmitButton = styled.button`
-background-color: #292830;
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 40px;
-height: 40px;
-border-radius: 50px;
-border: none;
-font-weight: 200;
-font-size: 1rem;
-`
-
-const DeleteButton = styled.button`
-
-background-color:rgb(53, 52, 59);
-color: white;
-display: flex;
-align-items: center;
-justify-content: center;
-width: 40px;
-height: 40px;
-border-radius: 50px;
-border: none;
-font-weight: 200;
-font-size: 1rem;
 `
 
 const PopUp = styled.div`
@@ -238,7 +209,7 @@ font-size: 1rem;
 color: white;
 padding: 10px;
 background-color: #1E1D22;
-border-radius: 10px;
+border-radius: 30px;
 border: none;`
 
 const NameInput = styled.input`
