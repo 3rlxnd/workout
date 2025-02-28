@@ -6,7 +6,6 @@ import styled from "styled-components";
 
 export default function Footer() {
     const router = useRouter()
-    console.log(router);
     
     return (
         <Container>

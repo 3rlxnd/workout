@@ -29,7 +29,6 @@ export default function WorkoutList() {
       <Card key={workout._id}>
         <ListContainer>
           <h2>{workout.name}</h2>
-                {console.log(workout)}
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
               <Textwrapper>
