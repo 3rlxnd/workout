@@ -9,7 +9,7 @@ import Loader from "../Loader/Loader";
 export default function WorkoutList() {
   const { data, error, isLoading, mutate } = useSWR('/api/workouts');
 
-  if (isLoading) return <Loader/>
+  if (isLoading) return <Loader />
   if (error || !data) return <p>Error fetching Data</p>
 
   async function handleDelete(id) {
@@ -28,7 +28,10 @@ export default function WorkoutList() {
   return (<CardContainer>
     {data.map(workout => (
       <Card key={workout._id}>
+        <WorkoutHeader>
           <Title>{workout.name}</Title>
+          <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
+        </WorkoutHeader>
         <ListContainer>
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
@@ -45,18 +48,19 @@ export default function WorkoutList() {
           </Fragment>
           ))}
         </ListContainer>
-          <StartButton href={`workouts/${workout._id}`}>
-            <FontAwesomeIcon icon={faPlay} />
-            <p>Start</p>
-          </StartButton>
-        {/* <Buttons>
-
-          <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
-        </Buttons> */}
+        <StartButton href={`workouts/${workout._id}`}>
+          <p>Start Workout</p>
+          <FontAwesomeIcon icon={faPlay} />
+        </StartButton>
       </Card>))}
   </CardContainer>
   )
 }
+
+const WorkoutHeader = styled.div`
+display: flex;
+justify-content: space-between;
+`
 
 const Textwrapper = styled.div`
 text-align: ${(props) => (props.$left ? "left" : "right")};
@@ -71,8 +75,7 @@ margin: 0;
 font-weight: 200;`
 
 const Title = styled.h2`
-margin: 0;
-margin-top: 12px;`
+margin: 0;`
 
 const Card = styled.div`
 display: flex;
@@ -107,14 +110,22 @@ const Divider = styled.hr`
 border: 0.5px solid black`
 
 const DeleteButton = styled.button`
+display: flex;
+color:rgb(193, 193, 193);
+gap: 10px;
+font-size: 14px;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color: rgba(0, 0, 0, 0.2);
+border-radius: 25px;
 border: none;
-background-color: #00000000;
-color: #5B5A60;
-font-family: verdana;
-font-size: 1rem;`
+padding: 10px
+`
 
 const StartButton = styled(Link)`
-background-color: lightblue;
+background: linear-gradient(to top, lightblue,rgb(154, 209, 225));
 font-size: 1rem;
 height: 40px;
 padding: 10px 20px;

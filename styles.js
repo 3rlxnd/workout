@@ -8,7 +8,7 @@ export default createGlobalStyle`
   }
 html {
 margin: 0;
-background-color: #0C0B10;
+background-color:rgb(25, 24, 28);
 }
   body {
   color: white;

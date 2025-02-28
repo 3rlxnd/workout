@@ -26,7 +26,7 @@ padding: 20px;
 display: flex;
 justify-content: center;
 margin-top: 40px;
-background-color: #0C0B10;
+background-color: rgb(25, 24, 28);
 border-top: 0.5px solid rgb(25, 25, 25);
 `
 

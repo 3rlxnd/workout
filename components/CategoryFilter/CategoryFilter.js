@@ -27,8 +27,8 @@ const FilterContainer = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  margin-left: 20px;
-  padding: 20px 20px 0 0;
+  margin: 0 20px;
+  padding-top: 20px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   
