@@ -3,12 +3,13 @@ import useSWR from 'swr'
 import CategoryFilter from '../CategoryFilter/CategoryFilter'
 import { useState } from 'react'
 import styled from 'styled-components'
+import Loader from '../Loader/Loader'
 
 export default function ExerciseList() {
   const [filter, setFilter] = useState(null)
   const { data, error, isLoading } = useSWR('/api/exercises')
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loader/>
   if (error || !data) return <p>Error fetching Data</p>
 
   const exercises = filter
@@ -28,7 +29,6 @@ export default function ExerciseList() {
           <Divider/>
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
-              <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} />
               <span>{muscle}</span>
             </Tag>)}
 
@@ -72,7 +72,7 @@ gap: 10px;
 color:gray;
 font-size: 14px;
 align-items: center;
-padding: 5px 10px 5px 5px;
+padding: 5px 10px;
 border-radius: 50px;`
 
 const ExerciseHeader = styled.div`

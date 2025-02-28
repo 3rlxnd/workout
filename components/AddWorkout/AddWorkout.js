@@ -3,10 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import styled from 'styled-components';
 import useSWR, { mutate } from 'swr';
+import Loader from '../Loader/Loader';
 
 export default function AddWorkout({ setVisible }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
     const [exerciseSelectors, setExerciseSelectors] = useState(['exercise-0']);
+
+      if (isLoading) return <Loader/>
+      if (error || !data) return <p>Error fetching Data</p>
 
     const addSelector = () => {
         setExerciseSelectors(prev => [...prev, `exercise-${prev.length}`]);
@@ -188,7 +192,7 @@ border: 01px solid rgb(49, 49, 49);
 
 const Select = styled.select`
 font-family: verdana;
-font-size: 14px;
+font-size: 1rem;
 border: unset;
 color: white;
 padding: 10px 15px;

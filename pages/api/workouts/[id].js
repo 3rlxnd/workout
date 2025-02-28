@@ -3,6 +3,19 @@ import Workout from '@/lib/database/models/Workout';
 
 export default async function handler(req, res) {
     await dbConnect()
+    if (req.method === 'GET') {
+        try {
+            const { id } = req.query
+            const workout = await Workout.findById(id).populate({
+                path: 'exercises.exercise', // Nested populate
+                model: 'Exercise'
+            });
+            
+            return res.status(200).json(workout);
+        } catch (error) {
+            return res.status(404).json('Error loading Data');
+        }
+    }
     if (req.method === 'DELETE') {
         const { id } = req.query
         try {
