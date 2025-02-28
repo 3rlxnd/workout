@@ -216,7 +216,6 @@ display: flex;
 flex-direction: column;
 text-decoration: none;
 padding: 10px;
-// background: linear-gradient(to top, #292830, #232227);
 background-color: #292830;
 border-radius: 30px;
 border: 01px solid rgb(49, 49, 49);
