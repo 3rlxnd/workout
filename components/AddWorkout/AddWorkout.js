@@ -23,7 +23,6 @@ export default function AddWorkout({ setVisible }) {
 
     function handleDeleteSelector(selector) {
         setExerciseSelectors(prev => prev.filter(exercise => exercise !== selector));
-        console.log(selectedExercises)
     }
 
     async function handleSubmit(event) {
