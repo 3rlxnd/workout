@@ -53,7 +53,7 @@ font-size: 14px, line-height: 1.25rem;
 `
 
 const Divider = styled.hr`
-border: 0.5px solid grey;
+border: 0.5px solid black;
 width: 100%;
 margin-top: 25px`
 

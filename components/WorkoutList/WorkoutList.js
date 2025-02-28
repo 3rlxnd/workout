@@ -98,7 +98,7 @@ align-items: center;
 justify-content: space-between`
 
 const Divider = styled.hr`
-border: 0.5px solid grey`
+border: 0.5px solid black`
 
 const DeleteButton = styled.button`
 border: none;
