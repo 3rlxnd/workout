@@ -15,8 +15,8 @@ export default function CategoryFilter({filter, setFilter}) {
     }
 
     return (<FilterContainer>
-    <Filter style={!filter ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
-        {data.map(category => <Filter style={filter === category ? {backgroundColor: 'lightblue', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
+    <Filter style={!filter ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
+        {data.map(category => <Filter style={filter === category ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
     </FilterContainer>)
 }
 
@@ -37,7 +37,9 @@ const FilterContainer = styled.div`
 `
 
 const Filter = styled.button`
-  background-color:#292830;
+  // background-color:#292830;
+background: linear-gradient(to top, #292830, #232227);
+border: 01px solid rgb(49, 49, 49);
   border: none;
   font-size: 1rem;
   padding: 6px 12px;
