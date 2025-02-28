@@ -31,7 +31,7 @@ export default function WorkoutList() {
           <h2>{workout.name}</h2>
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
-              <Textwrapper>
+              <Textwrapper $left>
                 <Text>{exercise.name}</Text>
                 {weight && <Text $grey>{exercise.difficulty}</Text>}
               </Textwrapper>
@@ -54,6 +54,7 @@ export default function WorkoutList() {
 }
 
 const Textwrapper = styled.div`
+text-align: ${(props) => (props.$left ? "left" : "right")};
 margin: 0;
 display: flex;
 gap: 5px;
