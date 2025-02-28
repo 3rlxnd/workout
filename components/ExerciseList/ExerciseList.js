@@ -26,7 +26,8 @@ export default function ExerciseList() {
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}><img/>{muscle}</Tag>)}
           </Tags>
-        </Card>))}
+        </Card>
+      ))}
     </CardContainer>
   </>
   )
@@ -57,8 +58,9 @@ gap: 20px;
 justify-content: space-between;
 align-items: center;`
 
-const Card = styled.div`
+const Card = styled(Link)`
 display: flex;
+color: white;
 flex-direction: column;
 text-decoration: none;
 padding: 20px;
