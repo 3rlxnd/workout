@@ -36,8 +36,8 @@ export default function WorkoutList() {
                 {weight && <Text style={{ color: 'grey', fontSize: '' }}>{exercise.difficulty}</Text>}
               </Textwrapper>
               <Textwrapper>
-                <Text2>{sets} x {reps}</Text2>
-                {weight && <Text2 style={{ color: 'grey', fontSize: '' }}>{weight}kg</Text2>}
+                <Text>{sets} x {reps}</Text>
+                {weight && <Text style={{ color: 'grey', fontSize: '' }}>{weight}kg</Text>}
               </Textwrapper>
             </ListItem>
             {index < workout.exercises.length - 1 && <Divider />}
@@ -61,13 +61,7 @@ flex-direction: column;`
 
 const Text = styled.span`
 margin: 0;
-font-weight: 200;
-text-align: left;`
-
-const Text2 = styled.span`
-margin: 0;
-font-weight: 200;
-text-align: right;`
+font-weight: 200;`
 
 const Buttons = styled.div`
 display: flex;
