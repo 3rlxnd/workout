@@ -89,14 +89,9 @@ export default function AddWorkout({ setVisible }) {
 
                             {selectedExercises[selector] && (
                                 <ExerciseSettings>
-                                    <label htmlFor={`${selector}-sets`}>Sets</label>
-                                    <Input type='number' name={`${selector}-sets`} required />
-
-                                    <label htmlFor={`${selector}-reps`}>Reps</label>
-                                    <Input type='number' name={`${selector}-reps`} required />
-
-                                    <label htmlFor={`${selector}-weight`}>Weight</label>
-                                    <Input type='number' name={`${selector}-weight`} required />
+                                    <Input type='number' name={`${selector}-sets`} placeholder='Sets' required />
+                                    <Input type='number' name={`${selector}-reps`} placeholder='Reps' required />
+                                    <Input type='number' name={`${selector}-weight`} placeholder='Weight' required />
                                 </ExerciseSettings>
                             )}
                         </Selector>
