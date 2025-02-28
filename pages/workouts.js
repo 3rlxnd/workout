@@ -1,12 +1,9 @@
 import AddWorkout from "@/components/AddWorkout/AddWorkout";
-import BackButtton from "@/components/BackButton/BackButtton";
-import ExerciseList from "@/components/ExerciseList/ExerciseList";
 import Footer from "@/components/Footer/Footer";
 import PageTitle from "@/components/Title/Title";
 import WorkoutList from "@/components/WorkoutList/WorkoutList";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 
