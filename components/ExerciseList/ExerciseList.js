@@ -25,6 +25,7 @@ export default function ExerciseList() {
             <Difficulty>{exercise.difficulty}</Difficulty>
           </ExerciseHeader>
           <Description>{exercise.description}</Description>
+          <Divider/>
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
               <img src={`/muscles/${muscle}.png`} alt={muscle} height={20} />
@@ -54,7 +55,7 @@ font-size: 14px, line-height: 1.25rem;
 const Divider = styled.hr`
 border: 0.5px solid grey;
 width: 100%;
-margin-top: -2px`
+margin-top: 25px`
 
 const Tags = styled.div`
 display: flex;
