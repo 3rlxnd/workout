@@ -3,12 +3,13 @@ import useSWR from 'swr'
 import CategoryFilter from '../CategoryFilter/CategoryFilter'
 import { useState } from 'react'
 import styled from 'styled-components'
+import Loader from '../Loader/Loader'
 
 export default function ExerciseList() {
   const [filter, setFilter] = useState(null)
   const { data, error, isLoading } = useSWR('/api/exercises')
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loader/>
   if (error || !data) return <p>Error fetching Data</p>
 
   const exercises = filter

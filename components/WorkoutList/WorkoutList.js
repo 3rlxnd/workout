@@ -4,11 +4,12 @@ import Link from "next/link";
 import { Fragment } from "react";
 import styled from "styled-components";
 import useSWR from "swr";
+import Loader from "../Loader/Loader";
 
 export default function WorkoutList() {
   const { data, error, isLoading, mutate } = useSWR('/api/workouts');
 
-  if (isLoading) return <p>Loading...</p>
+  if (isLoading) return <Loader/>
   if (error || !data) return <p>Error fetching Data</p>
 
   async function handleDelete(id) {
@@ -27,7 +28,7 @@ export default function WorkoutList() {
   return (<CardContainer>
     {data.map(workout => (
       <Card key={workout._id}>
-          <h2>{workout.name}</h2>
+          <Title>{workout.name}</Title>
         <ListContainer>
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
@@ -69,10 +70,9 @@ color: ${(props) => (props.$grey ? "grey" : "white")};
 margin: 0;
 font-weight: 200;`
 
-const Buttons = styled.div`
-display: flex;
-justify-content: flex-end;
-gap: 10px`
+const Title = styled.h2`
+margin: 0;
+margin-top: 12px;`
 
 const Card = styled.div`
 display: flex;
