@@ -1,4 +1,4 @@
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -28,19 +28,20 @@ export default function WorkoutList() {
     {data.map(workout => (
       <Card key={workout._id}>
         <ListContainer>
-      <h2>{workout.name}</h2>
+          <h2>{workout.name}</h2>
+                {console.log(workout)}
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
             <ListItem>
               <Textwrapper>
                 <Text>{exercise.name}</Text>
-                {weight && <Text style={{color: 'grey'}}>{weight}kg</Text>}
+                {weight && <Text style={{ color: 'grey', fontSize: '' }}>{exercise.difficulty}</Text>}
               </Textwrapper>
               <Textwrapper>
-                <Text2>{reps} reps</Text2>
-                <Text2>{sets} sets</Text2>
+                <Text2>{sets} x {reps}</Text2>
+                {weight && <Text2 style={{ color: 'grey', fontSize: '' }}>{weight}kg</Text2>}
               </Textwrapper>
             </ListItem>
-          {index < workout.exercises.length - 1 && <Divider />}
+            {index < workout.exercises.length - 1 && <Divider />}
           </Fragment>
           ))}
         </ListContainer>
@@ -58,6 +59,7 @@ export default function WorkoutList() {
 const Textwrapper = styled.div`
 margin: 0;
 display: flex;
+gap: 5px;
 flex-direction: column;`
 
 const Text = styled.span`
@@ -68,7 +70,6 @@ text-align: left;`
 const Text2 = styled.span`
 margin: 0;
 font-weight: 200;
-font-size: 12px;
 text-align: right;`
 
 const Buttons = styled.div`

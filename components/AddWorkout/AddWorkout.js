@@ -59,7 +59,7 @@ export default function AddWorkout({ setVisible }) {
 
     return (
         <PopUp>
-            <Form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <WorkoutsHeader>
 
                     <CloseButton type='button' onClick={() => {
@@ -68,17 +68,12 @@ export default function AddWorkout({ setVisible }) {
 
                     <SubmitButton type="submit"><FontAwesomeIcon icon={faCheck}/></SubmitButton>
                 </WorkoutsHeader>
+                <Form>
                 <NameInput name='name' type='text' placeholder={'Workout Name'} required />
                 {exerciseSelectors.map((selector, index) => (
                     <Selector key={selector}>
                         <ExerciseHeader>
-                            <Subtitle htmlFor={selector}>Exercise {index + 1}</Subtitle>
-                            <DeleteButton type='button' onClick={() => {
-                                handleDeleteSelector(selector)
-                            }}><FontAwesomeIcon icon={faClose} /></DeleteButton>
-                        </ExerciseHeader>
-
-                        <Select
+                          <Select
                             name={selector}
                             required
                             onChange={(e) => handleSelectChange(e, selector)}
@@ -90,9 +85,14 @@ export default function AddWorkout({ setVisible }) {
                                 </option>
                             ))}
                         </Select>
+                            <DeleteButton type='button' onClick={() => {
+                                handleDeleteSelector(selector)
+                            }}><FontAwesomeIcon icon={faClose} /></DeleteButton>
+                        </ExerciseHeader>
+
 
                         {selectedExercises[selector] && (
-                            <>
+                            <ExerciseSettings>
                                 <label htmlFor={`${selector}-sets`}>Sets</label>
                                 <Input type='number' name={`${selector}-sets`} required />
 
@@ -101,7 +101,7 @@ export default function AddWorkout({ setVisible }) {
 
                                 <label htmlFor={`${selector}-weight`}>Weight</label>
                                 <Input type='number' name={`${selector}-weight`} required />
-                            </>
+                            </ExerciseSettings>
                         )}
                     </Selector>
 
@@ -110,24 +110,38 @@ export default function AddWorkout({ setVisible }) {
                     <FontAwesomeIcon icon={faPlus} />
                     <span>Add Exercise</span>
                 </AddButton>
+                </Form>
                 {/* <CloseButton onClick={() => {
                     setVisible(false)
                 }}><FontAwesomeIcon icon={faCheck} /></CloseButton>
                  */}
                 {/* <SubmitButton type="submit">Save</SubmitButton> */}
-            </Form>
+            </form>
         </PopUp>
     );
 }
+
+const ExerciseSettings = styled.div`
+font-family: verdana;
+display: flex;
+gap: 20px;
+flex-direction: column;
+margin-top: 20px;
+font-size: 14px;`
 
 const WorkoutsHeader = styled.div`
 display: flex;
 justify-content: space-between;
 margin-bottom: 20px;
+position: sticky;
+top: 0;
+padding: 20px;
+background-color: black; 
 `
 
 const ExerciseHeader = styled.div`
 display: flex;
+align-items: center;
 justify-content: space-between;
 `
 
@@ -174,12 +188,18 @@ font-size: 1rem;
 `
 
 const DeleteButton = styled.button`
-background-color:rgba(41, 40, 48, 0);
+
+background-color:rgb(53, 52, 59);
 color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+border-radius: 50px;
 border: none;
 font-weight: 200;
 font-size: 1rem;
-padding: 0;
 `
 
 const Subtitle = styled.h3`
@@ -198,10 +218,10 @@ position: fixed;
   overflow-y: auto;
   padding-bottom: 60px;`
 
-const Form = styled.form`
+const Form = styled.div`
 font-family: verdana;
-padding: 20px;
 display: flex;
+padding: 20px;
 gap: 20px;
 flex-direction: column;`
 
@@ -209,23 +229,30 @@ const Selector = styled.div`
 display: flex;
 flex-direction: column;
 text-decoration: none;
-padding: 20px;
+padding: 10px;
 // background: linear-gradient(to top, #292830, #232227);
 background-color: #292830;
 border-radius: 25px;
-padding-bottom: 20px;
-border: 01px solid rgb(49, 49, 49)
+border: 01px solid rgb(49, 49, 49);
 `
 
 const Select = styled.select`
 font-family: verdana;
-font-size: 1rem;
+font-size: 14px;
+border: unset;
 color: white;
 padding: 10px;
-border-radius: 10px;
-margin-top: 30px;
+border-radius: 15px;
 border: none;
-background-color: rgba(0, 0, 0, 0.2);`
+background-color: rgba(0, 0, 0, 0.2);
+width: 250px;
+
+appearance: none;
+//   background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+//   background-repeat: no-repeat;
+//   background-position: right 0.7rem top 50%;
+//   background-size: 0.65rem auto;
+  `
 
 const Input = styled.input`
 font-family: verdana;
