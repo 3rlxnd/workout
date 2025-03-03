@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import useSWR, { mutate } from 'swr';
 import Loader from '../Loader/Loader';
 
-export default function AddWorkout({ setVisible }) {
+export default function WorkoutForm({ setVisible }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
     const [exerciseSelectors, setExerciseSelectors] = useState(['exercise-0']);
     const [selectedExercises, setSelectedExercises] = useState({});

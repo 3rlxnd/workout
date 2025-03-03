@@ -1,4 +1,3 @@
-import AddWorkout from "@/components/AddWorkout/AddWorkout";
 import Footer from "@/components/Footer/Footer";
 import PageTitle from "@/components/Title/Title";
 import WorkoutList from "@/components/WorkoutList/WorkoutList";
@@ -6,6 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
+import WorkoutForm from "@/components/WorkoutForm/WorkoutForm";
 
 export default function HomePage() {
     const [visible, setVisible] = useState(false);
@@ -17,7 +17,7 @@ export default function HomePage() {
             </AddButton>
 
         </WorkoutsHeader>
-        {visible && <AddWorkout setVisible={setVisible} />}
+        {visible && <WorkoutForm setVisible={setVisible} />}
         <WorkoutList />
         <Footer />
     </div>
