@@ -13,7 +13,6 @@ export default function ExerciseDetails() {
 
     return (<>
         <h1>{data.name}</h1>
-        <Loader/>
         <div>
             {data && <div>
                 <ul>

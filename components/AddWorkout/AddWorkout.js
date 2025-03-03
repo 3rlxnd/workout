@@ -8,6 +8,7 @@ import Loader from '../Loader/Loader';
 export default function AddWorkout({ setVisible }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
     const [exerciseSelectors, setExerciseSelectors] = useState(['exercise-0']);
+    const [selectedExercises, setSelectedExercises] = useState({});
 
       if (isLoading) return <Loader/>
       if (error || !data) return <p>Error fetching Data</p>
@@ -16,7 +17,6 @@ export default function AddWorkout({ setVisible }) {
         setExerciseSelectors(prev => [...prev, `exercise-${prev.length}`]);
     };
 
-    const [selectedExercises, setSelectedExercises] = useState({});
 
     const handleSelectChange = (e, selector) => {
         setSelectedExercises(prev => ({

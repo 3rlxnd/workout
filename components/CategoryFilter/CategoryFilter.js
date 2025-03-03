@@ -1,11 +1,8 @@
-import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import useSWR from 'swr'
 import Loader from '../Loader/Loader'
 
 export default function CategoryFilter({filter, setFilter}) {
-    const router = useRouter()
-    const { id } = router.query
     const { data, error, isLoading } = useSWR(`/api/categories`)
 
     if (isLoading) return <Loader/>
