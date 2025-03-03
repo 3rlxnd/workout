@@ -14,11 +14,11 @@ export default function SearchBar({setSearch}) {
                 type='text'
                 $width={visible ? '100%' : '0px'}
             />
-            <Button>
-                <FontAwesomeIcon onClick={() => {
+            <Button onClick={() => {
                     setVisible(!visible)
                     setSearch('')
-                }} icon={visible ? faClose : faSearch } width={40} height={40} />
+                }}>
+                <FontAwesomeIcon icon={visible ? faClose : faSearch } width={40} height={40} />
             </Button>
         </Container>
     )
