@@ -1,65 +1,23 @@
-import { faCheck, faClose, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
-import styled from 'styled-components';
-import useSWR, { mutate } from 'swr';
-import Loader from '../Loader/Loader';
+import { useEffect, useState } from "react";
+import useSWR, { mutate } from "swr";
+import Loader from "../Loader/Loader";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faClose, faPlus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { uid } from "uid";
 
-export default function WorkoutForm({ workout, setVisible, setWorkout }) {
+export default function WorkoutForm({ setVisible, workout, setWorkout }) {
+    
+
     const { data, error, isLoading } = useSWR('/api/exercises');
-    const [exerciseSelectors, setExerciseSelectors] = useState(workout ? workout.exercises : []);
-    const [selectedExercises, setSelectedExercises] = useState({});
+    const [selectors, setSelectors] = useState(workout ? workout.exercises : [{ _id: uid(), exercise: null, reps:null, sets: null, weight: null }]);
 
-    if (isLoading) return <Loader />
-    if (error || !data) return <p>Error fetching Data</p>
+    if (isLoading) return <Loader />;
+    if (error || !data) return <p>Error fetching Data</p>;
 
     const addSelector = () => {
-        setExerciseSelectors(prev => [...prev, { id: `exercise-${prev.length}`, workout: null, sets: 1, reps: 3, weight: null }]);
-        console.log(exerciseSelectors);
-
+        setSelectors(prev => [...prev, { _id: uid() , exercise: null, reps: null, sets: null }]);
     };
-
-
-    const handleSelectChange = (e, selectorId) => {
-        setSelectedExercises(prev => ({
-            ...prev,
-            [selectorId]: e.target.value
-        }));
-    };
-
-    function handleDeleteSelector(selector) {
-        setExerciseSelectors(prev => prev.filter(exercise => exercise !== selector));
-    }
-
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const entries = Object.fromEntries(formData);
-
-        const selectedExercises = exerciseSelectors.map(selector => ({
-            exercise: entries[selector],
-            sets: entries[`${selector}-sets`],
-            reps: entries[`${selector}-reps`],
-            weight: entries[`${selector}-weight`]
-        })).filter(exercise => exercise.exercise);
-
-        const response = await fetch('/api/workouts', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: entries.name, exercises: selectedExercises })
-        });
-
-        if (!response.ok) {
-            console.error('Error creating Workout');
-        } else {
-            setVisible(false);
-            event.target.reset();
-            setExerciseSelectors(["exercise-0"]);
-            mutate("/api/workouts");
-        }
-    }
 
     async function handleDelete(id) {
         const response = await fetch(`/api/workouts/${id}`, {
@@ -75,33 +33,69 @@ export default function WorkoutForm({ workout, setVisible, setWorkout }) {
         }
     }
 
+    function handleDeleteSelector(selector) {
+        setSelectors(prev => prev.filter(exercise => exercise !== selector));
+    }
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const entries = Object.fromEntries(formData);
+        
+        console.log(entries); // Debugging: See what you get
+    
+        // Properly mapping selectors
+        const updatedExercises = selectors.map(selector => ({
+            exercise: entries[selector._id],  // Get exercise ID
+            sets: parseInt(entries[`${selector._id}-sets`], 10) || 0,
+            reps: parseInt(entries[`${selector._id}-reps`], 10) || 0,
+            weight: entries[`${selector._id}-weight`] || null
+        })).filter(exercise => exercise.exercise); // Remove empty exercises
+    
+        console.log(updatedExercises); // Debugging: Verify array structure
+    
+        const response = await fetch(workout ? `/api/workouts/${workout._id}` : '/api/workouts', {
+            method: workout ? 'PUT' : 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: entries.name,
+                exercises: updatedExercises
+            })
+        });
+    
+        if (!response.ok) {
+            console.error('Error saving Workout');
+        } else {
+            setVisible(false);
+            event.target.reset();
+            setSelectors([{ _id: uid(), exercise: null, reps: 1, sets: 1 }]); // Reset selectors properly
+            mutate("/api/workouts");
+        }
+    }
+    
+
     return (
         <PopUp>
             <form onSubmit={handleSubmit}>
                 <WorkoutsHeader>
                     <Button type='button' onClick={() => {
                         setVisible(false)
-                        if (workout) setWorkout(null)
+                        if (setWorkout) setWorkout(null)
                     }}><FontAwesomeIcon icon={faClose} /></Button>
                     <Button type="submit"><FontAwesomeIcon icon={faCheck} /></Button>
                 </WorkoutsHeader>
                 <Form>
-                    {workout ?
-                        <NameInput name='name' type='text' defaultValue={workout ? workout.name : 'Workout Name'} required /> :
-                        <NameInput name='name' type='text' placeholder={'Workout Name'} required />
-                    }
-                    {exerciseSelectors.map((selector) => (
-                        <Selector key={selector.id}>
-                            {workout && console.log(selector)}
+                    <NameInput name='name' type='text' placeholder={'Workout Name'} required defaultValue={workout?.name || ''} />
+                    {selectors.map((selector) => (
+                        <Selector key={selector._id}>
                             <ExerciseHeader>
+                               
                                 <Select
-                                    name={`exercise-${selector.id}`}
+                                    name={selector._id}
                                     required
-                                    value={selectedExercises[selector.id] || ''}
-                                    onChange={(e) => handleSelectChange(e, selector.id)}
+                                    defaultValue={selector.exercise?._id || ''}
                                 >
-
-                                    <option value="">{workout ? selector.exercise.name : 'Select Exercise'}</option>
+                                    <option value="">Select Exercise</option>
                                     {data && data.map(exercise => (
                                         <option key={exercise._id} value={exercise._id}>
                                             {exercise.name}
@@ -112,18 +106,12 @@ export default function WorkoutForm({ workout, setVisible, setWorkout }) {
                                     handleDeleteSelector(selector)
                                 }}><FontAwesomeIcon icon={faClose} /></Button>
                             </ExerciseHeader>
-
-
-                            {selectedExercises[selector.id] && (
-                                <ExerciseSettings>
-                                    <Input type='number' name={`${selector.id}-sets`} placeholder='Sets' required />
-                                    <Input type='number' name={`${selector.id}-reps`} placeholder='Reps' required />
-                                    <Input type='number' name={`${selector.id}-weight`} placeholder='Weight' required />
-                                </ExerciseSettings>
-                            )}
-
+                            <ExerciseSettings>
+                                <Input type='number' name={`${selector._id}-sets`} placeholder='Sets' required defaultValue={workout ? selector.sets : null} />
+                                <Input type='number' name={`${selector._id}-reps`} placeholder='Reps' required defaultValue={workout ? selector.reps : null} />
+                                <Input type='number' name={`${selector._id}-weight`} placeholder='Weight (optional)' defaultValue={workout ? selector.weight : null} />
+                            </ExerciseSettings>
                         </Selector>
-
                     ))}
                     <AddButton type="button" onClick={addSelector}>
                         <FontAwesomeIcon icon={faPlus} />
@@ -137,6 +125,21 @@ export default function WorkoutForm({ workout, setVisible, setWorkout }) {
         </PopUp>
     );
 }
+
+const DeleteButton = styled.button`
+display: flex;
+color:rgb(193, 193, 193);
+gap: 10px;
+font-size: 14px;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color: rgba(0, 0, 0, 0.2);
+border-radius: 25px;
+border: none;
+padding: 10px
+`
 
 const ExerciseSettings = styled.div`
 font-family: verdana;
@@ -153,7 +156,7 @@ margin-bottom: 20px;
 position: sticky;
 top: 0;
 padding: 20px;
-background-color:rgb(25, 24, 28);
+background-color: #0C0B10;; 
 `
 
 const ExerciseHeader = styled.div`
@@ -190,29 +193,12 @@ border: none;
 padding: 10px
 `
 
-const DeleteButton = styled.button`
-display: flex;
-color:rgb(193, 193, 193);
-gap: 10px;
-margin: 0px 20px;
-font-size: 14px;
-width: 40px;
-height: 40px;
-align-items: center;
-justify-content: center;
-flex-direction: row;
-text-decoration: none;
-text-decoration: none;
-background-color: #292830;
-border-radius: 25px;
-border: none;`
-
 const PopUp = styled.div`
 position: fixed;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-background-color:rgb(25, 24, 28);
+  background-color: #0C0B10;
   top: 0;
   overflow-y: auto;
   padding-bottom: 60px;`

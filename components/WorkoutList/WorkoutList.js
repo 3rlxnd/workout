@@ -28,11 +28,11 @@ export default function WorkoutList({setWorkout}) {
             <ListItem>
               <Textwrapper $left>
                 <Text>{exercise.name}</Text>
-                {weight && <Text $grey>{exercise.difficulty}</Text>}
+                <Text $grey>{exercise.difficulty}</Text>
               </Textwrapper>
               <Textwrapper>
                 <Text>{sets} x {reps}</Text>
-                {weight && <Text $grey>{weight}kg</Text>}
+                {weight ? <Text $grey>{weight}kg</Text> : <Text $grey>Bodyweight</Text>}
               </Textwrapper>
             </ListItem>
             {index < workout.exercises.length - 1 && <Divider />}

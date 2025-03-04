@@ -14,8 +14,9 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       const { name, exercises } = req.body
+      console.log(req.body);
       
-      await Workout.create({name: name, exercises: exercises});
+      await Workout.create(req.body);
       return res.status(201).json('Created Workout');
     } catch (error) {
       return res.status(500).json('Error creating Workout');

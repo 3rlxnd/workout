@@ -6,11 +6,8 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         try {
             const { id } = req.query
-            const workout = await Workout.findById(id).populate({
-                path: 'exercises.exercise', // Nested populate
-                model: 'Exercise'
-            });
-            
+            const workout = await Workout.findById(id).populate('exercises.exercise');
+
             return res.status(200).json(workout);
         } catch (error) {
             return res.status(404).json('Error loading Data');
@@ -23,6 +20,16 @@ export default async function handler(req, res) {
             return res.status(200).json('Deleted Workout');
         } catch (error) {
             return res.status(500).json('Error deleting Workout');
+        }
+    }
+    if (req.method === 'PUT') {
+        try {
+            const { id } = req.query
+            const { name, exercises } = req.body;
+            await Workout.findByIdAndUpdate(id, { name, exercises });
+            return res.status(200).json('Updated Workout');
+        } catch (error) {
+            return res.status(500).json('Error updating Workout');
         }
     }
     return res.status(405).json('Method not allowed')
