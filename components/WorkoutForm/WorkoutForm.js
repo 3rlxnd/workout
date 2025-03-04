@@ -42,17 +42,20 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
         const formData = new FormData(event.target);
         const entries = Object.fromEntries(formData);
 
-        console.log(entries); // Debugging: See what you get
-
-        // Properly mapping selectors
+        console.log(entries); 
+        
         const updatedExercises = selectors.map(selector => ({
-            exercise: entries[selector._id],  // Get exercise ID
+            exercise: entries[selector._id],  
             sets: parseInt(entries[`${selector._id}-sets`], 10) || 0,
             reps: parseInt(entries[`${selector._id}-reps`], 10) || 0,
             weight: entries[`${selector._id}-weight`] || null
-        })).filter(exercise => exercise.exercise); // Remove empty exercises
+        })).filter(exercise => exercise.exercise); 
 
-        console.log(updatedExercises); // Debugging: Verify array structure
+       
+        
+        if (updatedExercises.length === 0) return
+
+        console.log(updatedExercises); 
 
         const response = await fetch(workout ? `/api/workouts/${workout._id}` : '/api/workouts', {
             method: workout ? 'PUT' : 'POST',
@@ -113,15 +116,18 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                             </ExerciseSettings>
                         </Selector>
                     ))}
+                    {selectors < 1 && <span>Please select an Exercises</span>}
                     <AddButton type="button" onClick={addSelector}>
                         <FontAwesomeIcon icon={faPlus} />
                         <span>Add Exercise</span>
                     </AddButton>
+                    {workout && <>
                     <Divider/>
-                    {workout && <DeleteButton onClick={() => handleDelete(workout._id)}>
+                    <DeleteButton onClick={() => handleDelete(workout._id)}>
                         <FontAwesomeIcon icon={faTrash} />
                         <span>Delete Exercise</span>
-                    </DeleteButton>}
+                    </DeleteButton>
+                    </>}
                 </Form>
             </form>
         </PopUp>
@@ -162,7 +168,6 @@ margin-bottom: 20px;
 position: sticky;
 top: 0;
 padding: 20px;
-background-color: #0C0B10;; 
 `
 
 const ExerciseHeader = styled.div`
@@ -186,7 +191,7 @@ font-size: 1rem;
 `
 const AddButton = styled.button`
 display: flex;
-color:rgb(193, 193, 193);
+color:rgb(255, 255, 255);
 gap: 10px;
 font-size: 1rem;
 align-items: center;
@@ -204,7 +209,7 @@ position: fixed;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background-color: #0C0B10;
+background-color:rgb(25, 24, 28);
   top: 0;
   overflow-y: auto;
   padding-bottom: 60px;`

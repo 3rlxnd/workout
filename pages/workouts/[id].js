@@ -25,8 +25,8 @@ export default function Start() {
         <PageTitle text={data.name}/>
         <Button type='button' onClick={() => router.back()}><FontAwesomeIcon icon={faClose} /></Button>
       </WorkoutsHeader>
-      <div>
-        {exercise.name}
+      <Container>
+        <h2>{exercise.name}</h2>
         <p>Reps: {data.exercises[current].reps}</p>
         <p>Sets: {data.exercises[current].sets}</p>
         <div>
@@ -40,10 +40,13 @@ export default function Start() {
           <button onClick={() => setCurrent(prev => prev + 1)}>Next</button> :
           <Link href={'/workouts'}>Done</Link>
         }
-      </div>
+      </Container>
     </>
   );
 }
+
+const Container = styled.div`
+padding: 0px 20px;`
 
 const WorkoutsHeader = styled.div`
 padding: 20px;

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import Loader from '../Loader/Loader'
+import styled from 'styled-components'
 
 export default function ExerciseDetails() {
     const router = useRouter()
@@ -11,7 +12,7 @@ export default function ExerciseDetails() {
     if(isLoading) return <Loader/> 
     if(error || !data) return <p>Error fetching Data</p>
 
-    return (<>
+    return (<Container>
         <h1>{data.name}</h1>
         <div>
             {data && <div>
@@ -23,6 +24,9 @@ export default function ExerciseDetails() {
                 </ol>
             </div>}
         </div>
-    </>
+    </Container>
     )
 }
+
+const Container = styled.div`
+padding: 0px 20px`

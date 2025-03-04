@@ -3,25 +3,30 @@ import styled from 'styled-components'
 
 export default function Loader() {
   return (
-    <Container/>
+    <Container />
   )
 }
 
 const Container = styled.div`
-height: 50px;
-  aspect-ratio: 2;
-  border: 10px solid #000;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 3px solid #FFF;
+  border-right: 3px solid transparent;
   box-sizing: border-box;
-  background: 
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) left/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) center/20px 20px,
-    radial-gradient(farthest-side,#fff 98%,#0000) right/20px 20px,
-    #000;
-  background-repeat: no-repeat;
-  filter: blur(4px) contrast(10);
-  animation: l14 1s infinite;
+  animation: rotation 1s linear infinite;
+  transform: translate(-50%, -50%);
 }
-@keyframes l14 {
-  100%  {background-position:right,left,center,right}
-}`
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} `
