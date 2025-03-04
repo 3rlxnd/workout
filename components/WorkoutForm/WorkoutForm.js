@@ -1,27 +1,29 @@
-import { faCheck, faClose, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClose, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import styled from 'styled-components';
 import useSWR, { mutate } from 'swr';
 import Loader from '../Loader/Loader';
 
-export default function WorkoutForm({ setVisible }) {
+export default function WorkoutForm({ workout, setVisible, setWorkout }) {
     const { data, error, isLoading } = useSWR('/api/exercises');
-    const [exerciseSelectors, setExerciseSelectors] = useState(['exercise-0']);
+    const [exerciseSelectors, setExerciseSelectors] = useState(workout ? workout.exercises : []);
     const [selectedExercises, setSelectedExercises] = useState({});
 
-      if (isLoading) return <Loader/>
-      if (error || !data) return <p>Error fetching Data</p>
+    if (isLoading) return <Loader />
+    if (error || !data) return <p>Error fetching Data</p>
 
     const addSelector = () => {
-        setExerciseSelectors(prev => [...prev, `exercise-${prev.length}`]);
+        setExerciseSelectors(prev => [...prev, { id: `exercise-${prev.length}`, workout: null, sets: 1, reps: 3, weight: null }]);
+        console.log(exerciseSelectors);
+
     };
 
 
-    const handleSelectChange = (e, selector) => {
+    const handleSelectChange = (e, selectorId) => {
         setSelectedExercises(prev => ({
             ...prev,
-            [selector]: e.target.value
+            [selectorId]: e.target.value
         }));
     };
 
@@ -59,26 +61,47 @@ export default function WorkoutForm({ setVisible }) {
         }
     }
 
+    async function handleDelete(id) {
+        const response = await fetch(`/api/workouts/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (!response.ok) {
+            console.error('Error deleting Workout');
+        } else {
+            mutate('/api/workouts');
+            setVisible(false)
+            if (workout) setWorkout(null)
+        }
+    }
+
     return (
         <PopUp>
             <form onSubmit={handleSubmit}>
                 <WorkoutsHeader>
                     <Button type='button' onClick={() => {
                         setVisible(false)
+                        if (workout) setWorkout(null)
                     }}><FontAwesomeIcon icon={faClose} /></Button>
                     <Button type="submit"><FontAwesomeIcon icon={faCheck} /></Button>
                 </WorkoutsHeader>
                 <Form>
-                    <NameInput name='name' type='text' placeholder={'Workout Name'} required />
+                    {workout ?
+                        <NameInput name='name' type='text' defaultValue={workout ? workout.name : 'Workout Name'} required /> :
+                        <NameInput name='name' type='text' placeholder={'Workout Name'} required />
+                    }
                     {exerciseSelectors.map((selector) => (
-                        <Selector key={selector}>
+                        <Selector key={selector.id}>
+                            {workout && console.log(selector)}
                             <ExerciseHeader>
                                 <Select
-                                    name={selector}
+                                    name={`exercise-${selector.id}`}
                                     required
-                                    onChange={(e) => handleSelectChange(e, selector)}
+                                    value={selectedExercises[selector.id] || ''}
+                                    onChange={(e) => handleSelectChange(e, selector.id)}
                                 >
-                                    <option value="">Select Exercise</option>
+
+                                    <option value="">{workout ? selector.exercise.name : 'Select Exercise'}</option>
                                     {data && data.map(exercise => (
                                         <option key={exercise._id} value={exercise._id}>
                                             {exercise.name}
@@ -91,13 +114,14 @@ export default function WorkoutForm({ setVisible }) {
                             </ExerciseHeader>
 
 
-                            {selectedExercises[selector] && (
+                            {selectedExercises[selector.id] && (
                                 <ExerciseSettings>
-                                    <Input type='number' name={`${selector}-sets`} placeholder='Sets' required />
-                                    <Input type='number' name={`${selector}-reps`} placeholder='Reps' required />
-                                    <Input type='number' name={`${selector}-weight`} placeholder='Weight' required />
+                                    <Input type='number' name={`${selector.id}-sets`} placeholder='Sets' required />
+                                    <Input type='number' name={`${selector.id}-reps`} placeholder='Reps' required />
+                                    <Input type='number' name={`${selector.id}-weight`} placeholder='Weight' required />
                                 </ExerciseSettings>
                             )}
+
                         </Selector>
 
                     ))}
@@ -107,6 +131,9 @@ export default function WorkoutForm({ setVisible }) {
                     </AddButton>
                 </Form>
             </form>
+            {workout && <DeleteButton onClick={() => handleDelete(workout._id)}>
+                <FontAwesomeIcon icon={faTrash} />
+            </DeleteButton>}
         </PopUp>
     );
 }
@@ -126,7 +153,7 @@ margin-bottom: 20px;
 position: sticky;
 top: 0;
 padding: 20px;
-background-color: #0C0B10;; 
+background-color:rgb(25, 24, 28);
 `
 
 const ExerciseHeader = styled.div`
@@ -163,12 +190,29 @@ border: none;
 padding: 10px
 `
 
+const DeleteButton = styled.button`
+display: flex;
+color:rgb(193, 193, 193);
+gap: 10px;
+margin: 0px 20px;
+font-size: 14px;
+width: 40px;
+height: 40px;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+text-decoration: none;
+background-color: #292830;
+border-radius: 25px;
+border: none;`
+
 const PopUp = styled.div`
 position: fixed;
   flex-direction: column;
   height: 100vh;
   width: 100%;
-  background-color: #0C0B10;
+background-color:rgb(25, 24, 28);
   top: 0;
   overflow-y: auto;
   padding-bottom: 60px;`

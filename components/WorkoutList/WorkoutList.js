@@ -1,4 +1,4 @@
-import { faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPen, faPlay, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { Fragment } from "react";
@@ -6,31 +6,22 @@ import styled from "styled-components";
 import useSWR from "swr";
 import Loader from "../Loader/Loader";
 
-export default function WorkoutList() {
+export default function WorkoutList({setWorkout}) {
   const { data, error, isLoading, mutate } = useSWR('/api/workouts');
 
   if (isLoading) return <Loader />
   if (error || !data) return <p>Error fetching Data</p>
 
-  async function handleDelete(id) {
-    const response = await fetch(`/api/workouts/${id}`, {
-      method: 'DELETE'
-    });
-
-    if (!response.ok) {
-      console.error('Error deleting Workout');
-    } else {
-      mutate();
-    }
+  async function handleEdit(workout) {
+    setWorkout(workout)
   }
-
 
   return (<CardContainer>
     {data.map(workout => (
       <Card key={workout._id}>
         <WorkoutHeader>
           <Title>{workout.name}</Title>
-          <DeleteButton onClick={() => handleDelete(workout._id)}><FontAwesomeIcon icon={faTrash} /></DeleteButton>
+          <EditButton onClick={() => handleEdit(workout)}><FontAwesomeIcon icon={faPen}/></EditButton>
         </WorkoutHeader>
         <ListContainer>
           {workout.exercises.map(({ exercise, sets, reps, weight }, index) => (<Fragment key={exercise._id}>
@@ -109,7 +100,7 @@ justify-content: space-between`
 const Divider = styled.hr`
 border: 0.5px solid black`
 
-const DeleteButton = styled.button`
+const EditButton = styled.button`
 display: flex;
 color:rgb(193, 193, 193);
 gap: 10px;

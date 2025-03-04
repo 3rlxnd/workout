@@ -9,6 +9,7 @@ import WorkoutForm from "@/components/WorkoutForm/WorkoutForm";
 
 export default function HomePage() {
     const [visible, setVisible] = useState(false);
+    const [workout, setWorkout] = useState(null);
     return (<div>
         <WorkoutsHeader>
             <PageTitle text={'Workouts'}/>
@@ -17,9 +18,10 @@ export default function HomePage() {
             </AddButton>
 
         </WorkoutsHeader>
-        {visible && <WorkoutForm setVisible={setVisible} />}
-        <WorkoutList />
-        <Footer />
+        {visible && <WorkoutForm setVisible={setVisible}/>}
+        {workout && <WorkoutForm workout={workout} setVisible={setVisible} setWorkout={setWorkout}/>}
+        <WorkoutList setWorkout={setWorkout}/>
+        <Footer/>
     </div>
     );
 }
