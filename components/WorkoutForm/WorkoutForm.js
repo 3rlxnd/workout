@@ -68,7 +68,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
         } else {
             setVisible(false);
             event.target.reset();
-            setSelectors([{ _id: uid(), exercise: null, reps: 1, sets: 1 }]); // Reset selectors properly
+            setWorkout(null); // Reset selectors properly
             mutate("/api/workouts");
         }
     }
