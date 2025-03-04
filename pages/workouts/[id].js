@@ -37,13 +37,50 @@ export default function Start() {
           </ol>
         </div>
         {current < data.exercises.length - 1 ?
-          <button onClick={() => setCurrent(prev => prev + 1)}>Next</button> :
-          <Link href={'/workouts'}>Done</Link>
+          <NextButton onClick={() => setCurrent(prev => prev + 1)}>
+            <p>Next</p>
+          </NextButton> :
+          <DoneButton href={'/workouts'}>
+            <p>Done</p>
+          </DoneButton>
         }
       </Container>
     </>
   );
 }
+
+const DoneButton = styled(Link)`
+background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
+color: white;
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: center;
+width: 80px;
+text-decoration: none;
+height: 40px;
+border-radius: 50px;
+border: none;
+font-weight: 200;
+font-size: 1rem;
+padding: 0px 20px
+`
+
+const NextButton = styled.button`
+background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
+color: white;
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: center;
+// width: 40px;
+height: 40px;
+border-radius: 50px;
+border: none;
+font-weight: 200;
+font-size: 1rem;
+padding: 0px 20px
+`
 
 const Container = styled.div`
 padding: 0px 20px;`
