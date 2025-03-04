@@ -7,16 +7,16 @@ import { faCheck, faClose, faPlus, faTrash } from "@fortawesome/free-solid-svg-i
 import { uid } from "uid";
 
 export default function WorkoutForm({ setVisible, workout, setWorkout }) {
-    
+
 
     const { data, error, isLoading } = useSWR('/api/exercises');
-    const [selectors, setSelectors] = useState(workout ? workout.exercises : [{ _id: uid(), exercise: null, reps:null, sets: null, weight: null }]);
+    const [selectors, setSelectors] = useState(workout ? workout.exercises : [{ _id: uid(), exercise: null, reps: null, sets: null, weight: null }]);
 
     if (isLoading) return <Loader />;
     if (error || !data) return <p>Error fetching Data</p>;
 
     const addSelector = () => {
-        setSelectors(prev => [...prev, { _id: uid() , exercise: null, reps: null, sets: null }]);
+        setSelectors(prev => [...prev, { _id: uid(), exercise: null, reps: null, sets: null }]);
     };
 
     async function handleDelete(id) {
@@ -41,9 +41,9 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const entries = Object.fromEntries(formData);
-        
+
         console.log(entries); // Debugging: See what you get
-    
+
         // Properly mapping selectors
         const updatedExercises = selectors.map(selector => ({
             exercise: entries[selector._id],  // Get exercise ID
@@ -51,9 +51,9 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
             reps: parseInt(entries[`${selector._id}-reps`], 10) || 0,
             weight: entries[`${selector._id}-weight`] || null
         })).filter(exercise => exercise.exercise); // Remove empty exercises
-    
+
         console.log(updatedExercises); // Debugging: Verify array structure
-    
+
         const response = await fetch(workout ? `/api/workouts/${workout._id}` : '/api/workouts', {
             method: workout ? 'PUT' : 'POST',
             headers: { "Content-Type": "application/json" },
@@ -62,17 +62,17 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                 exercises: updatedExercises
             })
         });
-    
+
         if (!response.ok) {
             console.error('Error saving Workout');
         } else {
             setVisible(false);
             event.target.reset();
-            setWorkout(null); // Reset selectors properly
+            if (setWorkout) setWorkout(null)
             mutate("/api/workouts");
         }
     }
-    
+
 
     return (
         <PopUp>
@@ -89,7 +89,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                     {selectors.map((selector) => (
                         <Selector key={selector._id}>
                             <ExerciseHeader>
-                               
+
                                 <Select
                                     name={selector._id}
                                     required
@@ -117,25 +117,31 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                         <FontAwesomeIcon icon={faPlus} />
                         <span>Add Exercise</span>
                     </AddButton>
+                    <Divider/>
+                    {workout && <DeleteButton onClick={() => handleDelete(workout._id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                        <span>Delete Exercise</span>
+                    </DeleteButton>}
                 </Form>
             </form>
-            {workout && <DeleteButton onClick={() => handleDelete(workout._id)}>
-                <FontAwesomeIcon icon={faTrash} />
-            </DeleteButton>}
         </PopUp>
     );
 }
 
+const Divider = styled.span`
+border-bottom: 0.5px solid grey;
+width: 100%`
+
 const DeleteButton = styled.button`
 display: flex;
-color:rgb(193, 193, 193);
+color:rgb(255, 81, 81);
 gap: 10px;
-font-size: 14px;
+font-size: 1rem;
 align-items: center;
 justify-content: center;
 flex-direction: row;
 text-decoration: none;
-background-color: rgba(0, 0, 0, 0.2);
+background-color: #292830;
 border-radius: 25px;
 border: none;
 padding: 10px
@@ -250,4 +256,4 @@ background-color:rgba(0, 0, 0, 0);
 border: none;
 padding-bottom: 10px;
 margin-bottom: 20px;
-border-bottom: 1px solid white;`
+border-bottom: 0.5px solid grey;`

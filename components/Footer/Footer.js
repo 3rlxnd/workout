@@ -10,8 +10,8 @@ export default function Footer() {
     return (
         <Container>
             <Navigation>
-                <Link href={'/'}><FontAwesomeIcon icon={faLayerGroup} fontSize={25} color={router.route === '/' ? 'lightblue' : '#5B5A60'}/></Link>
-                <Link href={'/workouts'}><FontAwesomeIcon icon={faDumbbell} fontSize={25} color={router.route === '/workouts' ? 'lightblue' : '#5B5A60'}/></Link>
+                <Link href={'/'}><FontAwesomeIcon icon={faLayerGroup} fontSize={25} color={router.route === '/' ? 'white' : '#5B5A60'}/></Link>
+                <Link href={'/workouts'}><FontAwesomeIcon icon={faDumbbell} fontSize={25} color={router.route === '/workouts' ? 'white' : '#5B5A60'}/></Link>
                 {/* <Link href={'/statistics'}><FontAwesomeIcon icon={faRankingStar} fontSize={30} color={router.route === '/statistics' ? 'black' : 'gray'}/></Link> */}
             </Navigation>
         </Container>
