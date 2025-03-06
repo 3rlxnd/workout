@@ -191,14 +191,14 @@ font-size: 1rem;
 `
 const AddButton = styled.button`
 display: flex;
-color:rgb(255, 255, 255);
+color: black;
 gap: 10px;
 font-size: 1rem;
 align-items: center;
 justify-content: center;
 flex-direction: row;
 text-decoration: none;
-background-color: #292830;
+background-color:rgb(255, 255, 255);
 border-radius: 25px;
 border: none;
 padding: 10px
@@ -261,4 +261,4 @@ background-color:rgba(0, 0, 0, 0);
 border: none;
 padding-bottom: 10px;
 margin-bottom: 20px;
-border-bottom: 0.5px solid grey;`
+border-bottom: 1px solid white;`
