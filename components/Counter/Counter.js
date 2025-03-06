@@ -4,15 +4,15 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function Counter({ name, reps, sets }) {
-    const [setCount] = useState(sets); // Number of sets
-    const [repCount] = useState(reps); // Number of reps per set
+    const [setCount] = useState(sets);
+    const [repCount] = useState(reps); 
     const [timeLeft, setTimeLeft] = useState(0);
     const [status, setStatus] = useState("Ready");
     const [running, setRunning] = useState(false);
     const [paused, setPaused] = useState(false);
     const [currentSet, setCurrentSet] = useState(1);
     const [currentRep, setCurrentRep] = useState(1);
-    const [phase, setPhase] = useState("idle"); // "rep", "rest", "idle"
+    const [phase, setPhase] = useState("idle"); 
     let timer;
 
     useEffect(() => {
@@ -86,7 +86,7 @@ export default function Counter({ name, reps, sets }) {
 
     const circleProgress = (timeLeft, phase) => {
         let maxTime = phase === "rep" ? 4 : 30;
-        let strokeDasharray = Math.PI * 2 * 40; // Circumference of the circle (radius 50)
+        let strokeDasharray = Math.PI * 2 * 40;
         let strokeDashoffset = (strokeDasharray * timeLeft) / maxTime;
         return strokeDashoffset;
     };
@@ -95,13 +95,6 @@ export default function Counter({ name, reps, sets }) {
         <Container>
             <ProgressCircle>
                 <Circle>
-                    {/* <SvgCircle
-                        cx="50%"
-                        cy="50%"
-                        r="40"
-                        fill="red"
-                        strokeWidth="10"
-                    /> */}
                     <SvgCircle
                         cx="50%"
                         cy="50%"
@@ -114,12 +107,11 @@ export default function Counter({ name, reps, sets }) {
                         fill="none"
                     />
                 </Circle>
-                <Count>{phase === "rep" ? reps-currentRep + 1 + ' left' : "Rest"}</Count>
+                <Count>{phase === "rep" ? reps - currentRep + 1 + ' left' : "Rest"}</Count>
             </ProgressCircle>
-            {/* <p>{timeLeft > 0 ? timeLeft : ""}</p> */}
             <Wrapper>
                 <Info>
-                <Title>{name}</Title>
+                    <Title>{name}</Title>
                 </Info>
                 <Controls>
                     <ResetButton onClick={resetTimer}>
@@ -129,8 +121,8 @@ export default function Counter({ name, reps, sets }) {
                         {running ? (paused ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />) : "Start"}
                     </StartButton>
                 </Controls>
-            </Wrapper> 
-                <Text>{sets-currentSet + 1} Sets to go</Text>
+            </Wrapper>
+            <Text>{sets - currentSet + 1} Sets to go</Text>
         </Container>
     );
 }
@@ -211,11 +203,11 @@ display: flex;
 margin-left: auto;
 margin-right: auto;
     `;
-    
-    const Circle = styled.svg`
+
+const Circle = styled.svg`
     transform: rotate(-90deg);
     `;
-    
-    const SvgCircle = styled.circle`
+
+const SvgCircle = styled.circle`
     transition: stroke-dashoffset 0.1s ease-in-out;
 `;
