@@ -28,8 +28,6 @@ export default function Start() {
       </WorkoutsHeader>
       <Counter name={exercise.name} reps={data.exercises[current].reps} sets={data.exercises[current].sets} />
       <Container>
-        <p>Reps: {data.exercises[current].reps}</p>
-        <p>Sets: {data.exercises[current].sets}</p>
         <div>
           <ol>
             {exercise.instructions.map(instruction => (
@@ -104,7 +102,9 @@ padding: 0px 20px
 const Container = styled.div`
 border-radius: 25px;
 background-color: var(--primary-color);
-padding: 20px;`
+padding: 20px;
+margin: 20px;
+`
 
 const WorkoutsHeader = styled.div`
 padding: 20px;

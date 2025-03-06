@@ -1,4 +1,4 @@
-import { faPause, faPlay, faRedo } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay, faRedo, faStop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -78,30 +78,81 @@ export default function Counter({ name, reps, sets }) {
         setTimeLeft(0);
         setRunning(false);
         setPaused(false);
-        setCurrentSet(1);
-        setCurrentRep(1);
+        setCurrentSet(0);
+        setCurrentRep(0);
         setPhase("idle");
         setStatus("Ready");
     };
 
+    const circleProgress = (timeLeft, phase) => {
+        let maxTime = phase === "rep" ? 4 : 30;
+        let strokeDasharray = Math.PI * 2 * 40; // Circumference of the circle (radius 50)
+        let strokeDashoffset = (strokeDasharray * timeLeft) / maxTime;
+        return strokeDashoffset;
+    };
+
     return (
         <Container>
-            <p>{status}</p>
-            <p>{timeLeft > 0 ? timeLeft : ""}</p>
+            <ProgressCircle>
+                <Circle>
+                    {/* <SvgCircle
+                        cx="50%"
+                        cy="50%"
+                        r="40"
+                        fill="red"
+                        strokeWidth="10"
+                    /> */}
+                    <SvgCircle
+                        cx="50%"
+                        cy="50%"
+                        r="40"
+                        stroke="white"
+                        strokeWidth="10"
+                        strokeDasharray={Math.PI * 2 * 40}
+                        strokeDashoffset={circleProgress(timeLeft, phase)}
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                </Circle>
+                <Count>{phase === "rep" ? reps-currentRep + 1 + ' left' : "Rest"}</Count>
+            </ProgressCircle>
+            {/* <p>{timeLeft > 0 ? timeLeft : ""}</p> */}
             <Wrapper>
+                <Info>
                 <Title>{name}</Title>
+                </Info>
                 <Controls>
                     <ResetButton onClick={resetTimer}>
-                        <FontAwesomeIcon icon={faRedo} />
+                        <FontAwesomeIcon icon={faStop} />
                     </ResetButton>
                     <StartButton onClick={startWorkout}>
                         {running ? (paused ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />) : "Start"}
                     </StartButton>
                 </Controls>
-            </Wrapper>
+            </Wrapper> 
+                <Text>{sets-currentSet + 1} Sets to go</Text>
         </Container>
     );
 }
+
+const Count = styled.p`
+margin: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+`
+
+const Text = styled.p`
+margin: 0;
+`
+
+const Info = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+`
 
 const Title = styled.h2`
 `
@@ -113,7 +164,8 @@ justify-content: space-between;
 `
 
 const Container = styled.div`
-padding: 20px;`
+padding: 20px;
+`
 
 const Controls = styled.div`
 display: flex;
@@ -149,3 +201,21 @@ font-weight: 200;
 font-size: 1rem;
 padding: 0px 20px
 `
+
+const ProgressCircle = styled.div`
+position: relative;
+display: flex;
+    width: 120px;
+    height: 120px;
+    justify-content: center;
+margin-left: auto;
+margin-right: auto;
+    `;
+    
+    const Circle = styled.svg`
+    transform: rotate(-90deg);
+    `;
+    
+    const SvgCircle = styled.circle`
+    transition: stroke-dashoffset 0.1s ease-in-out;
+`;
