@@ -13,8 +13,8 @@ export default function CategoryFilter({filter, setFilter}) {
     }
 
     return (<FilterContainer>
-    <Filter style={!filter ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
-        {data.map(category => <Filter style={filter === category ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
+    <Filter style={!filter ? {backgroundColor: 'white', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
+        {data.map(category => <Filter style={filter === category ? {backgroundColor: 'white', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
     </FilterContainer>)
 }
 
