@@ -74,7 +74,8 @@ flex-direction: column;
 text-decoration: none;
 padding: 20px;
 gap: 20px;
-background: linear-gradient(to top, #292830, #232227);
+background-color: var(--primary-color);
+// background: linear-gradient(to top, #292830, #232227);
 border-radius: 25px;
 border: 01px solid rgb(49, 49, 49)
 `;
@@ -102,21 +103,25 @@ border: 0.5px solid black`
 
 const EditButton = styled.button`
 display: flex;
-color:rgb(193, 193, 193);
+color:rgb(0, 0, 0);
 gap: 10px;
 font-size: 14px;
+height: 40px;
+width: 40px;
 align-items: center;
 justify-content: center;
 flex-direction: row;
 text-decoration: none;
-background-color: rgba(0, 0, 0, 0.2);
+background-color: white;
+// background-color: rgba(0, 0, 0, 0.2);
 border-radius: 25px;
 border: none;
 padding: 10px
 `
 
 const StartButton = styled(Link)`
-background: linear-gradient(to top, lightblue,rgb(154, 209, 225));
+// background: linear-gradient(to top, lightblue,rgb(154, 209, 225));
+background-color: white;
 font-size: 1rem;
 height: 40px;
 padding: 10px 20px;

@@ -73,10 +73,10 @@ flex-wrap: wrap;
 font-size: 14px`
 
 const Tag = styled.span`
-background-color: #1E1D22;
+background-color:rgb(255, 255, 255);
 display: flex;
 gap: 10px;
-color:gray;
+color: gray;
 font-size: 14px;
 align-items: center;
 padding: 5px 10px;
