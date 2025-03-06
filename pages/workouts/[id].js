@@ -1,3 +1,4 @@
+import Counter from "@/components/Counter/Counter";
 import Loader from "@/components/Loader/Loader";
 import PageTitle from "@/components/Title/Title";
 import { faCheck, faChevronLeft, faChevronRight, faClose } from "@fortawesome/free-solid-svg-icons";
@@ -25,8 +26,8 @@ export default function Start() {
         <PageTitle text={data.name} />
         <Button type='button' onClick={() => router.back()}><FontAwesomeIcon icon={faClose} /></Button>
       </WorkoutsHeader>
+      <Counter name={exercise.name} reps={data.exercises[current].reps} sets={data.exercises[current].sets} />
       <Container>
-        <h2>{exercise.name}</h2>
         <p>Reps: {data.exercises[current].reps}</p>
         <p>Sets: {data.exercises[current].sets}</p>
         <div>
@@ -36,26 +37,24 @@ export default function Start() {
             ))}
           </ol>
         </div>
-        <WorkoutFooter>
-          {console.log(current, data.exercises.length)
-          }
-          {current > 0 &&
-            <NextButton onClick={() => setCurrent(prev => prev - 1)}>
-            <FontAwesomeIcon icon={faChevronLeft}/>
-              <p>Back</p>
-            </NextButton>}
-          {current < data.exercises.length - 1 ?
-            <NextButton onClick={() => setCurrent(prev => prev + 1)}>
-              <p>Next</p>
-              <FontAwesomeIcon icon={faChevronRight}/>
-            </NextButton> :
-            <DoneButton href={'/workouts'}>
-              <p>Done</p>
-              <FontAwesomeIcon icon={faCheck}/>
-            </DoneButton>
-          }
-        </WorkoutFooter>
       </Container>
+      <WorkoutFooter>
+        {current > 0 &&
+          <NextButton onClick={() => setCurrent(prev => prev - 1)}>
+            <FontAwesomeIcon icon={faChevronLeft} />
+            <p>Back</p>
+          </NextButton>}
+        {current < data.exercises.length - 1 ?
+          <NextButton onClick={() => setCurrent(prev => prev + 1)}>
+            <p>Next</p>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </NextButton> :
+          <DoneButton href={'/workouts'}>
+            <p>Done</p>
+            <FontAwesomeIcon icon={faCheck} />
+          </DoneButton>
+        }
+      </WorkoutFooter>
     </>
   );
 }
@@ -67,7 +66,7 @@ width: 100%;
 bottom: 0;
 left: 0;
 display: flex;
-justify-content: space-between`
+justify-content: space-between;`
 
 const DoneButton = styled(Link)`
 background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
@@ -103,7 +102,9 @@ padding: 0px 20px
 `
 
 const Container = styled.div`
-padding: 0px 20px;`
+border-radius: 25px;
+background-color: var(--primary-color);
+padding: 20px;`
 
 const WorkoutsHeader = styled.div`
 padding: 20px;
