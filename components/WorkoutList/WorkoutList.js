@@ -99,7 +99,7 @@ align-items: center;
 justify-content: space-between`
 
 const Divider = styled.hr`
-border: 0.5px solid black`
+border: 0.5px solid #00000040`
 
 const EditButton = styled.button`
 display: flex;

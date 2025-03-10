@@ -94,6 +94,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                             <ExerciseHeader>
 
                                 <Select
+                                    id={selector._id}
                                     name={selector._id}
                                     required
                                     defaultValue={selector.exercise?._id || ''}
@@ -125,7 +126,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                     <Divider/>
                     <DeleteButton onClick={() => handleDelete(workout._id)}>
                         <FontAwesomeIcon icon={faTrash} />
-                        <span>Delete Exercise</span>
+                        <span>Delete Workout</span>
                     </DeleteButton>
                     </>}
                 </Form>

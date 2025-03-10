@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotating Point</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        .circle {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            border-radius: 50%;
+            position: relative;
+        }
+        .point {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="circle">
+        <div class="point" id="point"></div>
+    </div>
+
+    <script>
+        const point = document.getElementById("point");
+        let angle = 0;
+        
+        function updatePosition() {
+            const radius = 50; // Half of the circle's width/height
+            const centerX = radius;
+            const centerY = radius;
+            const x = centerX + radius * Math.cos(angle) - 5; // Adjust for point size
+            const y = centerY + radius * Math.sin(angle) - 5;
+            
+            point.style.left = `${x}px`;
+            point.style.top = `${y}px`;
+            
+            angle += Math.PI / 30; // Move every frame (1 second per full circle)
+        }
+        
+        setInterval(updatePosition, 33); // Approx. 30 frames per second
+    </script>
+</body>
+</html>

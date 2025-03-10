@@ -33,7 +33,7 @@ export default function ExerciseList() {
             <Difficulty>{exercise.difficulty}</Difficulty>
           </ExerciseHeader>
           <Description>{exercise.description}</Description>
-          <Divider />
+          {/* <Divider /> */}
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
               <span>{muscle}</span>
@@ -56,6 +56,7 @@ font-weight: 200;
 const Description = styled.span`
 color: grey; 
 font-weight: 200; 
+line-height: 1.5rem;
 font-size: 14px, line-height: 1.25rem;
 `
 
@@ -73,7 +74,7 @@ flex-wrap: wrap;
 font-size: 14px`
 
 const Tag = styled.span`
-background-color:rgb(255, 255, 255);
+background-color:rgb(55, 55, 55);
 display: flex;
 gap: 10px;
 color: gray;

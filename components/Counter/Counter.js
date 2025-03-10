@@ -98,10 +98,10 @@ export default function Counter({ name, reps, sets }) {
                     <SvgCircle
                         cx="50%"
                         cy="50%"
-                        r="40"
+                        r="80"
                         stroke="white"
                         strokeWidth="10"
-                        strokeDasharray={Math.PI * 2 * 40}
+                        strokeDasharray={Math.PI * 2 * 80}
                         strokeDashoffset={circleProgress(timeLeft, phase)}
                         strokeLinecap="round"
                         fill="none"
@@ -122,7 +122,7 @@ export default function Counter({ name, reps, sets }) {
                     </StartButton>
                 </Controls>
             </Wrapper>
-            <Text>{sets - currentSet + 1} Sets to go</Text>
+            <Text>{sets - currentSet} Sets to go</Text>
         </Container>
     );
 }
@@ -197,8 +197,8 @@ padding: 0px 20px
 const ProgressCircle = styled.div`
 position: relative;
 display: flex;
-    width: 120px;
-    height: 120px;
+    width: 300px;
+    height: 300px;
     justify-content: center;
 margin-left: auto;
 margin-right: auto;
