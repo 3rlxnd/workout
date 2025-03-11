@@ -16,9 +16,11 @@ export default function ExerciseDetails() {
         <h1>{data.name}</h1>
         <div>
             {data && <div>
+                <h2>Muscle Groups</h2>
                 <ul>
                     {data.muscleGroups.map(muscle => <li key={muscle}>{muscle}</li>)}
                 </ul>
+                <h2>Instructions</h2>
                 <ol>
                     {data.instructions.map(instruction => <li key={instruction}>{instruction}</li>)}
                 </ol>

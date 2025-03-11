@@ -9,6 +9,7 @@ export default createGlobalStyle`
 
   :root {
   --primary-color: #28272E
+  // --background-color: rgb(25, 24, 28)
   }
 
 html {

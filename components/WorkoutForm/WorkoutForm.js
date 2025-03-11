@@ -11,6 +11,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
 
     const { data, error, isLoading } = useSWR('/api/exercises');
     const [selectors, setSelectors] = useState(workout ? workout.exercises : [{ _id: uid(), exercise: null, reps: null, sets: null, weight: null }]);
+    const [deleteVisible, setDeleteVisible] = useState(false);
 
     if (isLoading) return <Loader />;
     if (error || !data) return <p>Error fetching Data</p>;
@@ -124,16 +125,33 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                     </AddButton>
                     {workout && <>
                     <Divider/>
-                    <DeleteButton onClick={() => handleDelete(workout._id)}>
+                    <DeleteButton type="button" onClick={() => setDeleteVisible(true)}>
                         <FontAwesomeIcon icon={faTrash} />
                         <span>Delete Workout</span>
                     </DeleteButton>
                     </>}
                 </Form>
             </form>
+            {deleteVisible && <Modal>
+                    <DeleteButton onClick={() => handleDelete(workout._id)}>
+                        <span>Delete</span>
+                    </DeleteButton>
+                    <DeleteButton onClick={() => setDeleteVisible(false)}>
+                        <span>Cancel</span>
+                    </DeleteButton>
+            </Modal>}
         </PopUp>
     );
 }
+
+const Modal = styled.div`
+position: fixed;
+z-index: 20;
+bottom: 0;
+width: 100%;
+background-color: rgb(25, 24, 28);
+height: 200px;
+`
 
 const Divider = styled.span`
 border-bottom: 0.5px solid grey;
@@ -166,6 +184,7 @@ const WorkoutsHeader = styled.div`
 display: flex;
 justify-content: space-between;
 margin-bottom: 20px;
+background-color: rgb(25, 24, 28);
 position: sticky;
 top: 0;
 padding: 20px;

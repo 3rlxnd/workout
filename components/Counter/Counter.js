@@ -1,4 +1,4 @@
-import { faPause, faPlay, faRedo, faStop } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay, faRedo, faStop, faUndo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
@@ -99,15 +99,24 @@ export default function Counter({ name, reps, sets }) {
                         cx="50%"
                         cy="50%"
                         r="80"
+                        stroke="var(--primary-color)"
+                        strokeWidth="20"
+                        strokeLinecap="round"
+                        fill="none"
+                    />
+                    <SvgCircle
+                        cx="50%"
+                        cy="50%"
+                        r="80"
                         stroke="white"
-                        strokeWidth="10"
+                        strokeWidth="20"
                         strokeDasharray={Math.PI * 2 * 80}
                         strokeDashoffset={circleProgress(timeLeft, phase)}
                         strokeLinecap="round"
                         fill="none"
                     />
                 </Circle>
-                <Count>{phase === "rep" ? reps - currentRep + 1 + ' left' : "Rest"}</Count>
+                <Count>{phase === "rep" ? reps - currentRep + 1 + ' left' : "Ready"}</Count>
             </ProgressCircle>
             <Wrapper>
                 <Info>
@@ -115,7 +124,7 @@ export default function Counter({ name, reps, sets }) {
                 </Info>
                 <Controls>
                     <ResetButton onClick={resetTimer}>
-                        <FontAwesomeIcon icon={faStop} />
+                        <FontAwesomeIcon icon={faUndo} />
                     </ResetButton>
                     <StartButton onClick={startWorkout}>
                         {running ? (paused ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />) : "Start"}
@@ -127,8 +136,9 @@ export default function Counter({ name, reps, sets }) {
     );
 }
 
-const Count = styled.p`
+const Count = styled.h2`
 margin: 0;
+font-weight: 200;
 position: absolute;
 top: 50%;
 left: 50%;
@@ -197,8 +207,8 @@ padding: 0px 20px
 const ProgressCircle = styled.div`
 position: relative;
 display: flex;
-    width: 300px;
-    height: 300px;
+    width: 240px;
+    height: 240px;
     justify-content: center;
 margin-left: auto;
 margin-right: auto;
@@ -209,5 +219,5 @@ const Circle = styled.svg`
     `;
 
 const SvgCircle = styled.circle`
-    transition: stroke-dashoffset 0.1s ease-in-out;
+    transition: stroke-dashoffset 1s ease-in-out;
 `;

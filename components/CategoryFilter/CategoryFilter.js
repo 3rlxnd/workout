@@ -31,13 +31,14 @@ const FilterContainer = styled.div`
   
   &::-webkit-scrollbar {
     display: none;
-  }
-`
-
-const Filter = styled.button`
+    }
+    `
+    
+  const Filter = styled.button`
+  transition: all 0.1s;
   // background-color:#292830;
-background: linear-gradient(to top, #292830, #232227);
-border: 01px solid rgb(49, 49, 49);
+  background: linear-gradient(to top, #292830, #232227);
+  border: 01px solid rgb(49, 49, 49);
   border: none;
   font-size: 1rem;
   padding: 6px 12px;
