@@ -132,30 +132,78 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                     </>}
                 </Form>
             </form>
-            {deleteVisible && <Modal>
-                    <DeleteButton onClick={() => handleDelete(workout._id)}>
+            {deleteVisible && <>
+            <Modal>
+                <h3>Confirm</h3>
+                <p>Are you sure you want to delete this Workout?</p>
+                    <DeleteButton2 onClick={() => handleDelete(workout._id)}>
+                        <FontAwesomeIcon icon={faTrash} />
                         <span>Delete</span>
-                    </DeleteButton>
-                    <DeleteButton onClick={() => setDeleteVisible(false)}>
+                    </DeleteButton2>
+                    <CancelButton onClick={() => setDeleteVisible(false)}>
                         <span>Cancel</span>
-                    </DeleteButton>
-            </Modal>}
+                    </CancelButton>
+            </Modal>
+            <Overlay/>
+            </>}
         </PopUp>
     );
 }
 
 const Modal = styled.div`
 position: fixed;
+display: flex;
+flex-direction: column;
+gap: 20px;
 z-index: 20;
-bottom: 0;
-width: 100%;
+padding: 20px;
+width: 80%;
+// margin-right: auto;
+// margin-left: auto;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
 background-color: rgb(25, 24, 28);
-height: 200px;
+border-radius: 6px;
+border: 1px solid #333333;
+`
+const Overlay = styled.div`
+position: fixed;
+display: flex;
+flex-direction: column;
+gap: 20px;
+z-index: 0;
+padding: 20px;
+width: 100%;
+height: 100vh;
+// margin-right: auto;
+// margin-left: auto;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgba(25, 24, 28, 0.81);
+border-radius: 6px;
 `
 
 const Divider = styled.span`
 border-bottom: 0.5px solid grey;
 width: 100%`
+
+const CancelButton = styled.button`
+display: flex;
+color:#292830;
+gap: 10px;
+font-size: 1rem;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color:rgb(255, 255, 255);
+border-radius: 25px;
+border: none;
+padding: 14px;
+width: 100%;
+`
 
 const DeleteButton = styled.button`
 display: flex;
@@ -170,6 +218,21 @@ background-color: #292830;
 border-radius: 25px;
 border: none;
 padding: 10px
+`
+
+const DeleteButton2 = styled.button`
+display: flex;
+color:rgb(255, 81, 81);
+gap: 10px;
+font-size: 1rem;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color: #292830;
+border-radius: 25px;
+border: none;
+padding: 14px
 `
 
 const ExerciseSettings = styled.div`

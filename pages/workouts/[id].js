@@ -29,11 +29,11 @@ export default function Start() {
       <Counter name={exercise.name} reps={data.exercises[current].reps} sets={data.exercises[current].sets} />
       <Container>
         <div>
-          <ol>
+          <List>
             {exercise.instructions.map(instruction => (
               <li key={instruction}>{instruction}</li>
             ))}
-          </ol>
+          </List>
         </div>
       </Container>
       <WorkoutFooter>
@@ -57,6 +57,12 @@ export default function Start() {
   );
 }
 
+const List = styled.ol`
+line-height: 1.5rem;
+list-item: none;
+// list-style-type: none;
+`
+
 const WorkoutFooter = styled.div`
 padding: 20px;
 position: fixed;
@@ -66,9 +72,10 @@ left: 0;
 display: flex;
 justify-content: space-between;
 
-&:has(:only-child) {
-justify-content: flex-end;
-}`
+&.single-child {
+    justify-content: flex-end;
+  }
+  `
 
 const DoneButton = styled(Link)`
 background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
