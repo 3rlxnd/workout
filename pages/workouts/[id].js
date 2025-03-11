@@ -64,7 +64,11 @@ width: 100%;
 bottom: 0;
 left: 0;
 display: flex;
-justify-content: space-between;`
+justify-content: space-between;
+
+&:has(:only-child) {
+justify-content: flex-end;
+}`
 
 const DoneButton = styled(Link)`
 background-color: ${(props) => (props.$dark ? "rgba(0, 0, 0, 0.2)" : "#292830")};
