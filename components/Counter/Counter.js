@@ -86,7 +86,7 @@ export default function Counter({ name, reps, sets }) {
 
     const circleProgress = (timeLeft, phase) => {
         let maxTime = phase === "rep" ? 4 : 30;
-        let strokeDasharray = Math.PI * 2 * 40;
+        let strokeDasharray = Math.PI * 2 * 80;
         let strokeDashoffset = (strokeDasharray * timeLeft) / maxTime;
         return strokeDashoffset;
     };
