@@ -1,5 +1,5 @@
 export default function DeleteModal({setDeleteVisible, handleDelete}) {
-    const [deleteVisible, setDeleteVisible] = useState(false);
+    // const [deleteVisible, setDeleteVisible] = useState(false);
 
     return (
         <Modal>
