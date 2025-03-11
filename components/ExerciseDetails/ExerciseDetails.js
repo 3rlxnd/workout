@@ -15,7 +15,7 @@ export default function ExerciseDetails() {
     return (<Container>
         <h1>{data.name}</h1>
         <div>
-            {data && <div>
+            {data && <Card>
                 <h2>Muscle Groups</h2>
                 <ul>
                     {data.muscleGroups.map(muscle => <li key={muscle}>{muscle}</li>)}
@@ -24,11 +24,23 @@ export default function ExerciseDetails() {
                 <ol>
                     {data.instructions.map(instruction => <li key={instruction}>{instruction}</li>)}
                 </ol>
-            </div>}
+            </Card>}
         </div>
     </Container>
     )
 }
+
+const Card = styled.div`
+display: flex;
+color: white;
+flex-direction: column;
+text-decoration: none;
+padding: 20px;
+background: linear-gradient(to top, #292830, #232227);
+border-radius: 25px;
+padding-bottom: 20px;
+border: 01px solid rgb(49, 49, 49)
+`;
 
 const Container = styled.div`
 padding: 0px 20px`
