@@ -76,7 +76,7 @@ padding: 20px;
 gap: 20px;
 background-color: var(--primary-color);
 // background: linear-gradient(to top, #292830, #232227);
-border-radius: 25px;
+border-radius: 40px;
 border: 01px solid rgb(49, 49, 49)
 `;
 
