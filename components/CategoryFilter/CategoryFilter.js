@@ -13,8 +13,8 @@ export default function CategoryFilter({filter, setFilter}) {
     }
 
     return (<FilterContainer>
-    <Filter style={!filter ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
-        {data.map(category => <Filter style={filter === category ? {background: 'linear-gradient(to top, lightblue,rgb(154, 209, 225))', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
+    <Filter style={!filter ? {background: 'none', backgroundColor: 'white', color: 'black'} : null} onClick={() => handleFilter(null)}>All</Filter>
+        {data.map(category => <Filter style={filter === category ? {background: 'none', backgroundColor: 'white', color: 'black'} : null} onClick={() => handleFilter(category)} key={category._id}>{category.category}</Filter>)}
     </FilterContainer>)
 }
 
@@ -24,20 +24,21 @@ const FilterContainer = styled.div`
   overflow-x: auto;
   overflow-y: hidden;
   max-width: 100%;
-  margin-left: 20px;
+  margin: 0px 20px;
   padding: 20px 20px 0 0;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   
   &::-webkit-scrollbar {
     display: none;
-  }
-`
-
-const Filter = styled.button`
+    }
+    `
+    
+  const Filter = styled.button`
+  transition: all 0.1s;
   // background-color:#292830;
-background: linear-gradient(to top, #292830, #232227);
-border: 01px solid rgb(49, 49, 49);
+  background: linear-gradient(to top, #292830, #232227);
+  border: 01px solid rgb(49, 49, 49);
   border: none;
   font-size: 1rem;
   padding: 6px 12px;

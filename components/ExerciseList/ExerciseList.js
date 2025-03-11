@@ -33,7 +33,7 @@ export default function ExerciseList() {
             <Difficulty>{exercise.difficulty}</Difficulty>
           </ExerciseHeader>
           <Description>{exercise.description}</Description>
-          <Divider />
+          {/* <Divider /> */}
           <Tags>
             {exercise.muscleGroups.map(muscle => <Tag key={muscle}>
               <span>{muscle}</span>
@@ -56,6 +56,7 @@ font-weight: 200;
 const Description = styled.span`
 color: grey; 
 font-weight: 200; 
+line-height: 1.5rem;
 font-size: 14px, line-height: 1.25rem;
 `
 
@@ -73,10 +74,10 @@ flex-wrap: wrap;
 font-size: 14px`
 
 const Tag = styled.span`
-background-color: #1E1D22;
+background-color:rgb(55, 55, 55);
 display: flex;
 gap: 10px;
-color:gray;
+color: gray;
 font-size: 14px;
 align-items: center;
 padding: 5px 10px;
@@ -103,6 +104,7 @@ border: 01px solid rgb(49, 49, 49)
 const CardContainer = styled.div`
 display: flex;
 padding: 20px;
+// overflow-y: scroll;
 gap: 20px;
 flex-direction: column;
 margin-bottom: 80px

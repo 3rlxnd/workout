@@ -6,13 +6,20 @@ export default createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+
+  :root {
+  --primary-color: #28272E
+  // --background-color: rgb(25, 24, 28)
+  }
+
 html {
 margin: 0;
 background-color:rgb(25, 24, 28);
 }
   body {
+  // overflow: hidden;
   color: white;
     margin: 0;
-    font-family: system-ui;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
   }
 `;

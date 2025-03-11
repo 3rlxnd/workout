@@ -11,6 +11,7 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
 
     const { data, error, isLoading } = useSWR('/api/exercises');
     const [selectors, setSelectors] = useState(workout ? workout.exercises : [{ _id: uid(), exercise: null, reps: null, sets: null, weight: null }]);
+    const [deleteVisible, setDeleteVisible] = useState(false);
 
     if (isLoading) return <Loader />;
     if (error || !data) return <p>Error fetching Data</p>;
@@ -42,20 +43,20 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
         const formData = new FormData(event.target);
         const entries = Object.fromEntries(formData);
 
-        console.log(entries); 
-        
+        console.log(entries);
+
         const updatedExercises = selectors.map(selector => ({
-            exercise: entries[selector._id],  
+            exercise: entries[selector._id],
             sets: parseInt(entries[`${selector._id}-sets`], 10) || 0,
             reps: parseInt(entries[`${selector._id}-reps`], 10) || 0,
             weight: entries[`${selector._id}-weight`] || null
-        })).filter(exercise => exercise.exercise); 
+        })).filter(exercise => exercise.exercise);
 
-       
-        
+
+
         if (updatedExercises.length === 0) return
 
-        console.log(updatedExercises); 
+        console.log(updatedExercises);
 
         const response = await fetch(workout ? `/api/workouts/${workout._id}` : '/api/workouts', {
             method: workout ? 'PUT' : 'POST',
@@ -89,11 +90,29 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                 </WorkoutsHeader>
                 <Form>
                     <NameInput name='name' type='text' placeholder={'Workout Name'} required defaultValue={workout?.name || ''} />
+                    {/* <Selector>
+                        <ExerciseHeader>
+
+                            <Select>
+                                <option value="">Select Schedule</option>
+                                {data && data.map(exercise => (
+                                    <option key={exercise._id} value={exercise._id}>
+                                        {exercise.name}
+                                    </option>
+                                ))}
+                            </Select>
+                            <Button $dark type='button' onClick={null}><FontAwesomeIcon icon={faClose} /></Button>
+                        </ExerciseHeader>
+                        <ExerciseSettings>
+                            <Input type='number' name={``} placeholder='Sets' required />
+                        </ExerciseSettings>
+                    </Selector> */}
                     {selectors.map((selector) => (
                         <Selector key={selector._id}>
                             <ExerciseHeader>
 
                                 <Select
+                                    id={selector._id}
                                     name={selector._id}
                                     required
                                     defaultValue={selector.exercise?._id || ''}
@@ -122,21 +141,86 @@ export default function WorkoutForm({ setVisible, workout, setWorkout }) {
                         <span>Add Exercise</span>
                     </AddButton>
                     {workout && <>
-                    <Divider/>
-                    <DeleteButton onClick={() => handleDelete(workout._id)}>
-                        <FontAwesomeIcon icon={faTrash} />
-                        <span>Delete Exercise</span>
-                    </DeleteButton>
+                        <Divider />
+                        <DeleteButton type="button" onClick={() => setDeleteVisible(true)}>
+                            <FontAwesomeIcon icon={faTrash} />
+                            <span>Delete Workout</span>
+                        </DeleteButton>
                     </>}
                 </Form>
             </form>
+            {deleteVisible && <>
+                <Modal>
+                    <h3>Confirm</h3>
+                    <p>Are you sure you want to delete this Workout?</p>
+                    <DeleteButton2 onClick={() => handleDelete(workout._id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                        <span>Delete</span>
+                    </DeleteButton2>
+                    <CancelButton onClick={() => setDeleteVisible(false)}>
+                        <span>Cancel</span>
+                    </CancelButton>
+                </Modal>
+                <Overlay />
+            </>}
         </PopUp>
     );
 }
 
+const Modal = styled.div`
+position: fixed;
+display: flex;
+flex-direction: column;
+gap: 20px;
+z-index: 20;
+padding: 20px;
+width: 80%;
+// margin-right: auto;
+// margin-left: auto;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgb(25, 24, 28);
+border-radius: 6px;
+border: 1px solid #333333;
+`
+const Overlay = styled.div`
+position: fixed;
+display: flex;
+flex-direction: column;
+gap: 20px;
+z-index: 0;
+padding: 20px;
+width: 100%;
+height: 100vh;
+// margin-right: auto;
+// margin-left: auto;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background-color: rgba(25, 24, 28, 0.81);
+border-radius: 6px;
+`
+
 const Divider = styled.span`
 border-bottom: 0.5px solid grey;
 width: 100%`
+
+const CancelButton = styled.button`
+display: flex;
+color:#292830;
+gap: 10px;
+font-size: 1rem;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color:rgb(255, 255, 255);
+border-radius: 25px;
+border: none;
+padding: 14px;
+width: 100%;
+`
 
 const DeleteButton = styled.button`
 display: flex;
@@ -153,6 +237,21 @@ border: none;
 padding: 10px
 `
 
+const DeleteButton2 = styled.button`
+display: flex;
+color:rgb(255, 81, 81);
+gap: 10px;
+font-size: 1rem;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+text-decoration: none;
+background-color: #292830;
+border-radius: 25px;
+border: none;
+padding: 14px
+`
+
 const ExerciseSettings = styled.div`
 font-family: verdana;
 display: flex;
@@ -165,6 +264,7 @@ const WorkoutsHeader = styled.div`
 display: flex;
 justify-content: space-between;
 margin-bottom: 20px;
+background-color: rgb(25, 24, 28);
 position: sticky;
 top: 0;
 padding: 20px;
@@ -191,14 +291,14 @@ font-size: 1rem;
 `
 const AddButton = styled.button`
 display: flex;
-color:rgb(255, 255, 255);
+color: black;
 gap: 10px;
 font-size: 1rem;
 align-items: center;
 justify-content: center;
 flex-direction: row;
 text-decoration: none;
-background-color: #292830;
+background-color:rgb(255, 255, 255);
 border-radius: 25px;
 border: none;
 padding: 10px
@@ -261,4 +361,4 @@ background-color:rgba(0, 0, 0, 0);
 border: none;
 padding-bottom: 10px;
 margin-bottom: 20px;
-border-bottom: 0.5px solid grey;`
+border-bottom: 1px solid white;`
