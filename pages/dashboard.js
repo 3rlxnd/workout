@@ -25,11 +25,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-gap: 16px;
 padding: 20px;
-min-height: 100vh;
 `;
 
 const Card = styled.div`
@@ -93,9 +89,6 @@ const App = () => {
           </WorkoutsHeader>
     <Container>
       <WorkoutCalendar/>
-      <WorkoutCard number={1} workout="Chest + Tricep" day="Fridays" />
-      <WeightCard weight={190} time="31 min" />
-      <WorkoutCard number={2} workout="Back + Bicep + Legs" day="Mondays" />
     </Container>
     <Footer/>
     </>);

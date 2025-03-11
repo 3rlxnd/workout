@@ -41,6 +41,7 @@ const WorkoutInfo = styled.div`
   display: flex;
   align-items: center;
   margin-top: 16px;
+  // margin-bottom: 50px;
 `;
 
 const WorkoutNumber = styled.div`
@@ -61,11 +62,13 @@ const WorkoutText = styled.div`
 const Title = styled.p`
   font-size: 16px;
   font-weight: bold;
+  margin: 0
 `;
 
 const Subtitle = styled.p`
   color: #8b8b8b;
   font-size: 14px;
+  margin: 0
 `;
 
 const months = ["Jan", "Feb", "Mar"];
@@ -95,7 +98,7 @@ const WorkoutCalendar = () => {
       <WorkoutInfo>
         <WorkoutNumber>2</WorkoutNumber>
         <WorkoutText>
-          <Title>Back + Bicep + Legs</Title>
+          <Title>Back + Upper Body</Title>
           <Subtitle>Mondays</Subtitle>
         </WorkoutText>
       </WorkoutInfo>

@@ -1,4 +1,4 @@
-import { faBinoculars, faDumbbell, faIdCard, faLayerGroup, faRankingStar, faStopwatch } from "@fortawesome/free-solid-svg-icons";
+import { faBinoculars, faDumbbell, faIdCard, faLayerGroup, faRankingStar, faStopwatch, faTimeline } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -10,9 +10,9 @@ export default function Footer() {
     return (
         <Container>
             <Navigation>
-                <Link href={'/dashboard'}><FontAwesomeIcon icon={faBinoculars} fontSize={25} color={router.route === '/dashboard' ? 'white' : '#5B5A60'}/></Link>
-                <Link href={'/'}><FontAwesomeIcon icon={faLayerGroup} fontSize={25} color={router.route === '/' ? 'white' : '#5B5A60'}/></Link>
-                <Link href={'/workouts'}><FontAwesomeIcon icon={faDumbbell} fontSize={25} color={router.route === '/workouts' ? 'white' : '#5B5A60'}/></Link>
+                <Link href={'/dashboard'}><FontAwesomeIcon icon={faLayerGroup} fontSize={25} color={router.route === '/dashboard' ? 'white' : '#5B5A60'}/></Link>
+                <Link href={'/'}><FontAwesomeIcon icon={faDumbbell} fontSize={25} color={router.route === '/' ? 'white' : '#5B5A60'}/></Link>
+                <Link href={'/workouts'}><FontAwesomeIcon icon={faStopwatch} fontSize={25} color={router.route === '/workouts' ? 'white' : '#5B5A60'}/></Link>
                 {/* <Link href={'/statistics'}><FontAwesomeIcon icon={faRankingStar} fontSize={30} color={router.route === '/statistics' ? 'black' : 'gray'}/></Link> */}
             </Navigation>
         </Container>

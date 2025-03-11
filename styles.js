@@ -17,6 +17,7 @@ margin: 0;
 background-color:rgb(25, 24, 28);
 }
   body {
+  // overflow: hidden;
   color: white;
     margin: 0;
     font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;

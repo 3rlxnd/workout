@@ -104,6 +104,7 @@ border: 01px solid rgb(49, 49, 49)
 const CardContainer = styled.div`
 display: flex;
 padding: 20px;
+// overflow-y: scroll;
 gap: 20px;
 flex-direction: column;
 margin-bottom: 80px
